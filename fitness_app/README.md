@@ -1,3 +1,5 @@
+![App Screenshot](app.png)
+
 # fitness_app
 
 A new Flutter project.
