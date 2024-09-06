@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:FitnessApp/utils/colors.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -11,77 +12,79 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile Section
-            Container(
-              decoration: _buildBoxDecoration(),
-              padding: const EdgeInsets.all(16),
-              child: Row(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Profile Section
+              Container(
+                decoration: _buildBoxDecoration(),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
+                      AssetImage('assets/images/profile.png'),
+                    ),
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi, Jane',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Let\'s check your activity',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.gray,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 32),
+
+              // Activity Summary Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage:
-                    AssetImage('assets/images/profile.png'),
-                  ),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hi, Jane',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Let\'s check your activity',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildActivityCard('Finished', '12', 'Completed Workouts', Icons.check_circle, Colors.orange),
+                  _buildActivityCard('In progress', '2', 'Workouts', Icons.autorenew, Colors.blue),
+                  _buildActivityCard('Time spent', '62', 'Minutes', Icons.timer, Colors.purple),
                 ],
               ),
-            ),
-            SizedBox(height: 32),
+              SizedBox(height: 32),
 
-            // Activity Summary Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildActivityCard('Finished', '12', 'Completed Workouts', Icons.check_circle, Colors.orange),
-                _buildActivityCard('In progress', '2', 'Workouts', Icons.autorenew, Colors.blue),
-                _buildActivityCard('Time spent', '62', 'Minutes', Icons.timer, Colors.purple),
-              ],
-            ),
-            SizedBox(height: 32),
-
-            // Discover New Workouts Section
-            Text(
-              'Discover new workouts',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              // Discover New Workouts Section
+              Text(
+                'Discover new workouts',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                _buildWorkoutCard('Cardio', '10 Exercises', '50 Minutes', Colors.yellow, 'assets/images/cardio.png'),
-                SizedBox(width: 16),
-                _buildWorkoutCard('Arms', '6 Exercises', '35 Minutes', Colors.lightBlueAccent, 'assets/images/arms.png'),
-              ],
-            ),
-            SizedBox(height: 32),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  _buildWorkoutCard('Cardio', '10 Exercises', '50 Minutes', Colors.yellow, 'assets/images/cardio.png'),
+                  SizedBox(width: 16),
+                  _buildWorkoutCard('Arms', '6 Exercises', '35 Minutes', Colors.lightBlueAccent, 'assets/images/arms.png'),
+                ],
+              ),
+              SizedBox(height: 32),
 
-            // Progress Section
-            _buildProgressCard('Keep the progress!', 'You are more successful than 88% users'),
-          ],
+              // Progress Section
+              _buildProgressCard('Keep the progress!', 'You are more successful than 88% users'),
+            ],
+          ),
         ),
       ),
     );
@@ -89,7 +92,7 @@ class HomePage extends StatelessWidget {
 
   BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
@@ -120,7 +123,7 @@ class HomePage extends StatelessWidget {
           Text(
             subtitle,
             style: TextStyle(
-              color: Colors.grey,
+              color: AppColors.gray,
             ),
           ),
         ],
@@ -176,7 +179,7 @@ class HomePage extends StatelessWidget {
               Text(
                 subtitle,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: AppColors.gray,
                 ),
               ),
             ],
