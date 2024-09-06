@@ -1,7 +1,10 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'homepage.dart';
+import 'package:english_words/english_words.dart';
+import 'pages/homepage.dart';
+import 'pages/login.dart';
+import 'pages/signup.dart';
+import 'utils/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,9 +21,13 @@ class MyApp extends StatelessWidget {
         title: 'Fitness App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        home: MyHomePage(),
+        initialRoute: '/login',
+        routes: {
+          '/login': (context) => LoginPage(),
+          '/signup': (context) => SignUpPage(),
+          '/home': (context) => MyHomePage(),
+        },
       ),
     );
   }
@@ -59,57 +66,56 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = HomePage(); // Here, HomePage is assigned correctly
+        page = HomePage();
         break;
       case 1:
-        page = Placeholder(); // You can replace Placeholder with another widget
+        page = Placeholder();
         break;
       case 2:
-        page = Placeholder(); // You can replace Placeholder with another widget
+        page = Placeholder();
         break;
       case 3:
-        page = Placeholder(); // You can replace Placeholder with another widget
+        page = Placeholder();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
     return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            destinations: const <Widget>[
-              NavigationDestination(
-                selectedIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.sports),
-                icon: Icon(Icons.sports_outlined),
-                label: 'Workouts',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.fastfood_rounded),
-                icon: Icon(Icons.fastfood_rounded),
-                label: 'Nutrition',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.leaderboard),
-                icon: Icon(Icons.leaderboard_outlined),
-                label: 'Leaderboard',
-              ),
-            ],
-          ),
-          body: page, // Display the selected page here
-        );
-      },
-    );
+        builder: (context, constraints) {
+          return Scaffold(
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              destinations: const <Widget>[
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.home),
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.sports),
+                  icon: Icon(Icons.sports_outlined),
+                  label: 'Workouts',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.fastfood_rounded),
+                  icon: Icon(Icons.fastfood_rounded),
+                  label: 'Nutrition',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.leaderboard),
+                  icon: Icon(Icons.leaderboard_outlined),
+                  label: 'Leaderboard',
+                ),
+              ],
+            ),
+            body: page,
+      );
+    });
   }
 }
