@@ -82,7 +82,9 @@ class SignUpPage extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  },
                   child: Text(
                     'Sign Up',
                     style: TextStyle(fontSize: 18, color: AppColors.white),

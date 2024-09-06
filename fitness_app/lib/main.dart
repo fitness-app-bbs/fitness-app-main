@@ -5,6 +5,7 @@ import 'pages/homepage.dart';
 import 'pages/login.dart';
 import 'pages/signup.dart';
 import 'utils/colors.dart';
+import 'pages/leaderboard.dart';
 
 void main() {
   runApp(MyApp());
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = Placeholder();
         break;
       case 3:
-        page = Placeholder();
+        page = LeaderboardPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
