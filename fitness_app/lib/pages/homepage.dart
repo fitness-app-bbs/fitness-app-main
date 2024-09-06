@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
+import 'package:FitnessApp/pages/settings.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,49 +17,68 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Profile Section
-              Container(
-                decoration: _buildBoxDecoration(),
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage:
-                      AssetImage('assets/images/profile.png'),
-                    ),
-                    SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hi, Jane',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                  );
+                },
+                child: Container(
+                  decoration: _buildBoxDecoration(),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage:
+                        AssetImage('assets/images/profile.png'),
+                      ),
+                      SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hi, Jane',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Let\'s check your activity',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.gray,
+                          Text(
+                            'Let\'s check your activity',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.gray,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 32),
 
               // Activity Summary Section
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildActivityCard('Finished', '12', 'Completed Workouts', Icons.check_circle, Colors.orange),
-                  _buildActivityCard('In progress', '2', 'Workouts', Icons.autorenew, Colors.blue),
-                  _buildActivityCard('Time spent', '62', 'Minutes', Icons.timer, Colors.purple),
+                  Expanded(
+                    flex: 1,
+                    child: _buildActivityCard('Finished', '12', 'Completed Workouts', Icons.check_circle, Colors.orange),
+                  ),
+                  SizedBox(width: 16),
+                  // Workouts und Minuten werden übereinander angezeigt
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        _buildActivityCard('In progress', '2', 'Workouts', Icons.autorenew, Colors.blue),
+                        SizedBox(height: 16),
+                        _buildActivityCard('Time spent', '62', 'Minutes', Icons.timer, Colors.purple),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 32),
