@@ -128,4 +128,5 @@ class AppColors {
   static const Color mediumSlateBlue = Color(0xFF7B68EE);
   static const Color lavenderBlush = Color(0xFFFFF0F5);
   static const Color mistyRose = Color(0xFFFFE4E1);
+  static const Color bronze = Color(0xFFCD7F32);
 }
