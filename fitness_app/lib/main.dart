@@ -7,6 +7,7 @@ import 'pages/signup.dart';
 import 'utils/colors.dart';
 import 'pages/leaderboard.dart';
 import 'pages/workouts.dart';
+import 'pages/nutrition.dart';
 
 void main() {
   runApp(MyApp());
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = WorkoutPage();
         break;
       case 2:
-        page = Placeholder();
+        page = NutritionDashboard();
         break;
       case 3:
         page = LeaderboardPage();
