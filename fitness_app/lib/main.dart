@@ -86,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return LayoutBuilder(
         builder: (context, constraints) {
           return Scaffold(
+            backgroundColor: AppColors.white,
             bottomNavigationBar: NavigationBar(
               selectedIndex: selectedIndex,
               onDestinationSelected: (int index) {
