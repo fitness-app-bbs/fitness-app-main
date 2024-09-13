@@ -41,6 +41,7 @@ class NutritionDashboard extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         title: Text(
           'Nutrition Dashboard',
