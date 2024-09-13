@@ -14,6 +14,11 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Image.asset(
+                    'assets/images/logo_purple_transp.png',
+                        height: 200,
+                ),
+                SizedBox(height: 20),
                 Text(
                   'Welcome back',
                   textAlign: TextAlign.center,
