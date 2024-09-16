@@ -1,4 +1,4 @@
-![App Screenshot](app.png)
+<img src="app.png" width="30%"/>
 
 # fitness_app
 
