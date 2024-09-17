@@ -88,8 +88,10 @@ class NutritionDashboard extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          trailing: ClipOval(
-                            child: Image.asset("assets/images/profile.png"),
+                          trailing: CircleAvatar(
+                            radius: 30,
+                            backgroundImage:
+                            AssetImage('assets/images/haley_profile.png'),
                           ),
                         ),
                         SizedBox(height: 10),

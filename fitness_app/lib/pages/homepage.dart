@@ -44,14 +44,14 @@ class HomePage extends StatelessWidget {
                       CircleAvatar(
                         radius: 30,
                         backgroundImage:
-                        AssetImage('assets/images/profile.png'),
+                        AssetImage('assets/images/haley_profile.png'),
                       ),
                       SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi, Jane',
+                            'Hi, Haley',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -96,15 +96,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(width: 8), // Reduced the space between the columns
+                  SizedBox(width: 16), // Reduced the space between the columns
 
                   // The right column takes the remaining 55% with two wider cards
                   Expanded(
-                    flex: 60, // This will take 55% of the available width
+                    flex: 100, // This will take 55% of the available width
                     child: Column(
                       children: [
                         Container(
-                          height: 95, // Set height to take up half of the parent's height
+                          height: 92, // Set height to take up half of the parent's height
                           child: _buildActivityCardRight(
                               'In progress', ' 2', ' Workouts',
                               Icons.autorenew, Colors.blue
@@ -112,7 +112,7 @@ class HomePage extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Container(
-                          height: 95, // Set height to take up half of the parent's height
+                          height: 92, // Set height to take up half of the parent's height
                           child: _buildActivityCardRight(
                               'Time spent', ' 62', ' Minutes',
                               Icons.timer, Colors.purple
@@ -126,7 +126,9 @@ class HomePage extends StatelessWidget {
 
               SizedBox(height: 20),
 
-              _buildProgressCard('Keep the progress!', 'You are more successful than 88% users'),
+
+
+              _buildProgressCard('Keep the progress!', 'You are more successful than 40% of your friends'),
 
               SizedBox(height: 30),
 
@@ -255,7 +257,7 @@ class HomePage extends StatelessWidget {
     return Container(
       decoration: _buildBoxDecoration(),
       padding: EdgeInsets.all(16),
-      width: 200,
+      width: 220,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center, // Center the contents
         children: [
