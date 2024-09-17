@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                       CircleAvatar(
                         radius: 30,
                         backgroundImage:
-                        AssetImage('assets/images/haley_profile.png'),
+                        AssetImage('assets/images/haley_image.png'),
                       ),
                       SizedBox(width: 16),
                       Column(
@@ -149,7 +149,7 @@ class HomePage extends StatelessWidget {
                         '10 Exercises',
                         '50 Minutes',
                         Colors.orange,
-                        'assets/images/boxing.png',
+                        'assets/images/crunch.png',
                       ),
                     ),
                     SizedBox(width: 16), // Space between cards
@@ -165,7 +165,7 @@ class HomePage extends StatelessWidget {
                         '6 Exercises',
                         '35 Minutes',
                         Colors.indigo,
-                        'assets/images/arms.png',
+                        'assets/images/bench_press.png',
                       ),
 
                     ),
@@ -203,9 +203,9 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: _buildFoodCard(
-                        'Another Food',
+                        'Pesto Pasta',
                         Colors.indigo,
-                        'assets/images/fruit_granola.png',
+                        'assets/images/pesto_pasta.png',
                       ),
                     ),
                   ],
@@ -284,7 +284,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildWorkoutCard(String title, String exercises, String time, Color color, String imagePath) {
     return Container(
-      width: 220, // Adjust the width to fit more content
+      width: 240, // Adjust the width to fit more content
       decoration: _buildBoxDecoration().copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
@@ -330,7 +330,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildFoodCard(String title, Color color, String imagePath) {
     return Container(
-      width: 220, // Adjust the width to fit more content
+      width: 240, // Adjust the width to fit more content
       decoration: _buildBoxDecoration().copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
@@ -354,9 +354,10 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30), // Space between text and image
+          //SizedBox(width: 30), // Space between text and image
 
           // Image on the right
-          Image.asset(imagePath, height: 100, fit: BoxFit.cover),
+          Image.asset(imagePath, height: 80, fit: BoxFit.cover),
         ],
       ),
     );
