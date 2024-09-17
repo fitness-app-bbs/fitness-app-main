@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:FitnessApp/utils/colors.dart';
+import 'meal_recipe_page.dart';
 
 double radians(double degrees) {
   return degrees * (math.pi / 180);
@@ -128,18 +129,18 @@ class NutritionDashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 8),
-                        _mealCard('Fruit Granola', 271, '10 min', 'assets/images/fruit_granola.png'),
-                        _mealCard('Pesto Pasta', 512, '15 min', 'assets/images/pesto_pasta.png'),
-                        _mealCard('Greek Yogurt Parfait', 200, '5 min', 'assets/images/greek_yogurt_parfait.png'),
-                        _mealCard('Quinoa Salad', 290, '10 min', 'assets/images/quinoa_salad.png'),
-                        _mealCard('Protein Smoothie', 180, '7 min', 'assets/images/protein_smoothie.png'),
-                        _mealCard('Keto Salad', 415, '12 min', 'assets/images/keto_salad.png'),
-                        _mealCard('Avocado Toast', 250, '5 min', 'assets/images/avocado_toast.png'),
-                        _mealCard('Chicken Caesar Salad', 470, '12 min', 'assets/images/chicken_caesar_salad.png'),
-                        _mealCard('Grilled Salmon', 320, '20 min', 'assets/images/grilled_salmon.png'),
-                        _mealCard('Vegan Buddha Bowl', 350, '15 min', 'assets/images/vegan_buddha_bowl.png'),
-                        _mealCard('Turkey Wrap', 310, '8 min', 'assets/images/turkey_wrap.png'),
-                        _mealCard('Chicken Stir Fry', 450, '18 min', 'assets/images/chicken_stir_fry.png'),
+                        _mealCard(context, 'Fruit Granola', 271, '10 min', 'assets/images/fruit_granola.png'),
+                        _mealCard(context, 'Pesto Pasta', 512, '15 min', 'assets/images/pesto_pasta.png'),
+                        _mealCard(context, 'Greek Yogurt Parfait', 200, '5 min', 'assets/images/greek_yogurt_parfait.png'),
+                        _mealCard(context, 'Quinoa Salad', 290, '10 min', 'assets/images/quinoa_salad.png'),
+                        _mealCard(context, 'Protein Smoothie', 180, '7 min', 'assets/images/protein_smoothie.png'),
+                        _mealCard(context, 'Keto Salad', 415, '12 min', 'assets/images/keto_salad.png'),
+                        _mealCard(context, 'Avocado Toast', 250, '5 min', 'assets/images/avocado_toast.png'),
+                        _mealCard(context, 'Chicken Caesar Salad', 470, '12 min', 'assets/images/chicken_caesar_salad.png'),
+                        _mealCard(context, 'Grilled Salmon', 320, '20 min', 'assets/images/grilled_salmon.png'),
+                        _mealCard(context, 'Vegan Buddha Bowl', 350, '15 min', 'assets/images/vegan_buddha_bowl.png'),
+                        _mealCard(context, 'Turkey Wrap', 310, '8 min', 'assets/images/turkey_wrap.png'),
+                        _mealCard(context, 'Chicken Stir Fry', 450, '18 min', 'assets/images/chicken_stir_fry.png'),
                         SizedBox(height: 24),
                       ],
                     ),
@@ -159,18 +160,32 @@ class NutritionDashboard extends StatelessWidget {
     );
   }
 
-  Widget _mealCard(String name, int kcal, String time, String imagePath) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+  Widget _mealCard(BuildContext context, String name, int kcal, String time, String imagePath) {
+  return Card(
+    margin: EdgeInsets.symmetric(vertical: 8),
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MealRecipePage(
+              name: name,
+              imagePath: imagePath,
+              kcal: kcal,
+              time: time,
+            ),
+          ),
+        );
+      },
       child: ListTile(
         leading: Image.asset(imagePath, width: 50, height: 50),
         title: Text(name),
         subtitle: Text('$kcal kcal • $time'),
       ),
-    );
-  }
+    ),
+  );
 }
-
+}
 class _IngredientProgress extends StatelessWidget {
   final String ingredient;
   final int leftAmount;
