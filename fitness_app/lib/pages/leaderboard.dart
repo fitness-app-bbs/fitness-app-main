@@ -96,7 +96,7 @@ class LeaderboardPage extends StatelessWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.medium,
+              backgroundColor: AppColors.dark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -126,7 +126,7 @@ class LeaderboardPage extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: AppColors.lightlight,
+                backgroundColor: AppColors.dark,
                 child: Text(
                   user['rank'].toString(),
                   style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
@@ -200,7 +200,7 @@ class LeaderboardPage extends StatelessWidget {
     } else if (rank == 3) {
       trophyColor = AppColors.bronze;
     } else {
-      trophyColor = AppColors.medium;
+      trophyColor = AppColors.dark;
     }
 
     return Icon(Icons.emoji_events, color: trophyColor);
