@@ -1,0 +1,8 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#263105",
+        "titleBar.activeBackground": "#364507",
+        "titleBar.activeForeground": "#F7FCE6"
+    },
+    "cmake.sourceDirectory": "/home/daniel/01_projects/02_fitness_app/fitness-app-daniel/fitness_app/linux"
+}

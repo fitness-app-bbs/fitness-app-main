@@ -3,6 +3,7 @@ import 'package:FitnessApp/utils/colors.dart';
 import 'package:FitnessApp/pages/settings.dart';
 import 'package:FitnessApp/pages/workouts.dart';
 import 'package:FitnessApp/pages/nutrition.dart';
+import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 double radians(double degrees) {
@@ -58,10 +59,10 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Let\'s check your activity',
+                            "${DateFormat("EEEE").format(DateTime.now())}, ${DateFormat("d MMMM").format(DateTime.now())}",
                             style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.gray,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
                             ),
                           ),
                         ],
