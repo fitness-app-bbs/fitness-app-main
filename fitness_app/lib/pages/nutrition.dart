@@ -15,7 +15,7 @@ class SearchBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.dark, 
+          color: AppColors.dark,
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
@@ -161,7 +161,8 @@ class NutritionDashboard extends StatelessWidget {
   }
 
   Widget _mealCard(BuildContext context, String name, int kcal, String time, String imagePath) {
-  return Card(
+  return Container(
+    decoration: _buildBoxDecorationWithShadow(),
     margin: EdgeInsets.symmetric(vertical: 8),
     child: InkWell(
       onTap: () {
@@ -185,6 +186,20 @@ class NutritionDashboard extends StatelessWidget {
     ),
   );
 }
+  BoxDecoration _buildBoxDecorationWithShadow() {
+    return BoxDecoration(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: AppColors.black.withOpacity(0.1),
+          spreadRadius: 4,
+          blurRadius: 4,
+          offset: Offset(0, 4),
+        ),
+      ],
+    );
+  }
 }
 class _IngredientProgress extends StatelessWidget {
   final String ingredient;
@@ -224,7 +239,7 @@ class _IngredientProgress extends StatelessWidget {
                   width: width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.black12,
+                    color: AppColors.lightGray,
                   ),
                 ),
                 Container(
@@ -277,7 +292,7 @@ class _RadialProgress extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFF200087),
+                    color: AppColors.dark,
                   ),
                 ),
                 TextSpan(text: "\n"),
@@ -286,7 +301,7 @@ class _RadialProgress extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFF200087),
+                    color: AppColors.dark,
                   ),
                 ),
               ],

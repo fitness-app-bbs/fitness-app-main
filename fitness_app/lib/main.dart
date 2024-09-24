@@ -85,10 +85,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return LayoutBuilder(
-        builder: (context, constraints) {
-          return Scaffold(
-            backgroundColor: AppColors.white,
-            bottomNavigationBar: NavigationBar(
+      builder: (context, constraints) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          bottomNavigationBar: NavigationBarTheme(
+            data: CustomNavBarTheme.theme,  // Anwenden des Farbschemas
+            child: NavigationBar(
               selectedIndex: selectedIndex,
               onDestinationSelected: (int index) {
                 setState(() {
@@ -118,8 +120,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            body: page,
-      );
-    });
+          ),
+          body: page,
+        );
+      },
+    );
   }
 }
+
+  class CustomNavBarTheme {
+    static NavigationBarThemeData get theme {
+      return NavigationBarThemeData(
+      backgroundColor: AppColors.whitepink,
+      indicatorColor: AppColors.lightpink,
+      labelTextStyle: MaterialStateProperty.all(TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.bold,
+        )),
+      iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return IconThemeData(
+            color: AppColors.black,
+          );
+        }
+        return IconThemeData(
+          color: AppColors.black,
+          );
+        }),
+      );
+    }
+  }
+
