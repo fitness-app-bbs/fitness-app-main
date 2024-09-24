@@ -1,0 +1,23 @@
+{
+  "homepage_title": "Homepage",
+  "greeting": "Hi, Haley",
+  "current_day": "EEEE",
+  "current_date": "d MMMM",
+  "in_progress_title": "In progress",
+  "in_progress_count": "2",
+  "in_progress_workouts": "Workouts",
+  "time_spent_title": "Time spent",
+  "time_spent_count": "62",
+  "time_spent_minutes": "Minutes",
+  "progress_title": "Keep the progress!",
+  "progress_message": "You are more successful than 40% of your friends",
+  "workout_card_cardio": "Cardio",
+  "workout_card_cardio_exercises": "10 Exercises",
+  "workout_card_cardio_time": "50 Minutes",
+  "workout_card_arms": "Arms",
+  "workout_card_arms_exercises": "6 Exercises",
+  "workout_card_arms_time": "35 Minutes",
+  "food_card_fruit_granola": "Fruit Granola",
+  "food_card_pesto_pasta": "Pesto Pasta",
+  "calories_left": "kcal left"
+}
