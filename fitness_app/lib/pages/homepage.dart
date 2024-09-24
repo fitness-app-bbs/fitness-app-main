@@ -115,7 +115,8 @@ class _HomePageState extends State<HomePage> {
                         child: _RadialProgress(
                           width: width * 0.4,
                           height: width * 0.4,
-                          progress: 0.7,
+                          progress: localizedStrings!['radial_progress_value'],  // Load progress from JSON
+                          kcalLeft: localizedStrings!['radial_progress_kcal'],   // Load kcal text from JSON
                         ),
                       ),
                     ),
@@ -420,34 +421,36 @@ Widget _buildActivityCardLeft(String title, String count, String subtitle, IconD
 
 class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
+  final String kcalLeft; // Add kcalLeft parameter
 
   const _RadialProgress({
     Key? key,
     required this.height,
     required this.width,
     required this.progress,
+    required this.kcalLeft, // Initialize kcalLeft
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: _buildBoxDecoration(),
-      padding: EdgeInsets.all(16),  // This will create padding around the progress
-      width: 200,  // Keep a fixed width for the container
+      padding: EdgeInsets.all(16),
+      width: 200,
       height: height,
-      child: Stack(  // Use Stack to layer the CustomPaint and the content
+      child: Stack(
         children: [
           CustomPaint(
             painter: _RadialPainter(progress: progress),
-            size: Size(width, height),  // Define the size for the radial progress
+            size: Size(width, height),
           ),
-          Center(  // Center the content on top of the radial progress
+          Center(
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "1731",
+                    text: kcalLeft.split(" ")[0],  // Extract the kcal number from the text
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
@@ -456,7 +459,7 @@ class _RadialProgress extends StatelessWidget {
                   ),
                   TextSpan(text: "\n"),
                   TextSpan(
-                    text: "kcal left",
+                    text: kcalLeft.split(" ")[1] + " " + kcalLeft.split(" ")[2], // Extract "kcal left"
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -472,6 +475,7 @@ class _RadialProgress extends StatelessWidget {
     );
   }
 }
+
 
 class _RadialPainter extends CustomPainter {
   final double progress;
