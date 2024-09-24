@@ -4,22 +4,48 @@ import 'package:FitnessApp/pages/settings.dart';
 import 'package:FitnessApp/pages/workouts.dart';
 import 'package:FitnessApp/pages/nutrition.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 import 'dart:math' as math;
+import 'package:flutter/services.dart' show rootBundle;
 
 double radians(double degrees) {
   return degrees * (math.pi / 180);
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Map<String, dynamic>? localizedStrings;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalizedStrings();
+  }
+
+  Future<void> _loadLocalizedStrings() async {
+    String jsonString = await rootBundle.loadString('assets/json/homepage.json');
+    setState(() {
+      localizedStrings = json.decode(jsonString);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (localizedStrings == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        title: Text("Homepage"),
+        title: Text(localizedStrings!['homepage_title']),
         elevation: 0,
         backgroundColor: AppColors.white,
         centerTitle: true,
@@ -44,22 +70,21 @@ class HomePage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundImage:
-                        AssetImage('assets/images/haley_image.png'),
+                        backgroundImage: AssetImage('assets/images/haley_image.png'),
                       ),
                       SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi, Haley',
+                            localizedStrings!['greeting'],
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            "${DateFormat("EEEE").format(DateTime.now())}, ${DateFormat("d MMMM").format(DateTime.now())}",
+                            "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
@@ -76,7 +101,6 @@ class HomePage extends StatelessWidget {
               // Activity Summary Section
               Row(
                 children: [
-                  // The first card takes 45% of the width
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -85,9 +109,9 @@ class HomePage extends StatelessWidget {
                       );
                     },
                     child: Expanded(
-                      flex: 40, // This will take 40% of the available width
+                      flex: 40,
                       child: Container(
-                        height: 200, // Set a fixed height for the cards
+                        height: 200,
                         child: _RadialProgress(
                           width: width * 0.4,
                           height: width * 0.4,
@@ -96,26 +120,27 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  SizedBox(width: 16), // Reduced the space between the columns
-
-                  // The right column takes the remaining 55% with two wider cards
+                  SizedBox(width: 16),
                   Expanded(
-                    flex: 100, // This will take 55% of the available width
+                    flex: 100,
                     child: Column(
                       children: [
                         Container(
-                          height: 92, // Set height to take up half of the parent's height
+                          height: 92,
                           child: _buildActivityCardRight(
-                              'In progress', ' 2', ' Workouts',
+                              localizedStrings!['in_progress_title'],
+                              localizedStrings!['in_progress_count'],
+                              localizedStrings!['in_progress_workouts'],
                               Icons.autorenew, Colors.blue
                           ),
                         ),
                         SizedBox(height: 16),
                         Container(
-                          height: 92, // Set height to take up half of the parent's height
+                          height: 92,
                           child: _buildActivityCardRight(
-                              'Time spent', ' 62', ' Minutes',
+                              localizedStrings!['time_spent_title'],
+                              localizedStrings!['time_spent_count'],
+                              localizedStrings!['time_spent_minutes'],
                               Icons.timer, Colors.purple
                           ),
                         ),
@@ -127,84 +152,81 @@ class HomePage extends StatelessWidget {
 
               SizedBox(height: 20),
 
-
-
-              _buildProgressCard('Keep the progress!', 'You are more successful than 40% of your friends'),
+              _buildProgressCard(
+                localizedStrings!['progress_title'],
+                localizedStrings!['progress_message'],
+              ),
 
               SizedBox(height: 30),
 
-
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WorkoutPage()), // Replace with your target page
+                          MaterialPageRoute(builder: (context) => WorkoutPage()),
                         );
                       },
                       child: _buildWorkoutCard(
-                        'Cardio',
-                        '10 Exercises',
-                        '50 Minutes',
+                        localizedStrings!['workout_card_cardio'],
+                        localizedStrings!['workout_card_cardio_exercises'],
+                        localizedStrings!['workout_card_cardio_time'],
                         Colors.orange,
                         'assets/images/crunch.png',
                       ),
                     ),
-                    SizedBox(width: 16), // Space between cards
+                    SizedBox(width: 16),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WorkoutPage()), // Replace with your target page
+                          MaterialPageRoute(builder: (context) => WorkoutPage()),
                         );
                       },
                       child: _buildWorkoutCard(
-                        'Arms',
-                        '6 Exercises',
-                        '35 Minutes',
+                        localizedStrings!['workout_card_arms'],
+                        localizedStrings!['workout_card_arms_exercises'],
+                        localizedStrings!['workout_card_arms_time'],
                         Colors.indigo,
                         'assets/images/bench_press.png',
                       ),
-
                     ),
-
                   ],
                 ),
               ),
 
-
               SizedBox(height: 20),
 
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => NutritionDashboard()), // Replace with your target page
+                          MaterialPageRoute(builder: (context) => NutritionDashboard()),
                         );
                       },
                       child: _buildFoodCard(
-                        'Fruit Granola',
+                        localizedStrings!['food_card_fruit_granola'],
                         Colors.orange,
                         'assets/images/fruit_granola.png',
                       ),
                     ),
-                    SizedBox(width: 16), // Space between cards
+                    SizedBox(width: 16),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => NutritionDashboard()), // Replace with your target page
+                          MaterialPageRoute(builder: (context) => NutritionDashboard()),
                         );
                       },
                       child: _buildFoodCard(
-                        'Pesto Pasta',
+                        localizedStrings!['food_card_pesto_pasta'],
                         Colors.indigo,
                         'assets/images/pesto_pasta.png',
                       ),
@@ -213,10 +235,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
 
-
               SizedBox(height: 32),
-
-              // Progress Section
             ],
           ),
         ),
@@ -224,7 +243,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityCardLeft(String title, String count, String subtitle, IconData icon, Color color) {
+
+
+Widget _buildActivityCardLeft(String title, String count, String subtitle, IconData icon, Color color) {
     return Container(
       decoration: _buildBoxDecoration(),
       padding: EdgeInsets.all(16),
