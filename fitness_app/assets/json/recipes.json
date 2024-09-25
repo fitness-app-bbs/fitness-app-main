@@ -1,0 +1,225 @@
+{
+  "recipes": [
+    {
+      "name": "Fruit Granola",
+      "kcal": 350,
+      "time": "10 min",
+      "ingredients": [
+        "1 cup of oats",
+        "1/2 cup of yogurt",
+        "1/4 cup of almonds",
+        "1 tbsp of honey",
+        "1/2 cup of mixed berries"
+      ],
+      "instructions": [
+        "Mix oats and yogurt in a bowl.",
+        "Add honey and stir well.",
+        "Top with almonds and berries.",
+        "Serve and enjoy your healthy meal!"
+      ]
+    },
+    {
+      "name": "Pesto Pasta",
+      "kcal": 500,
+      "time": "20 min",
+      "ingredients": [
+        "200g pasta",
+        "1/4 cup basil pesto",
+        "2 tbsp olive oil",
+        "1 clove garlic, minced",
+        "1/4 cup grated Parmesan",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        "Cook pasta according to package instructions.",
+        "Heat olive oil in a pan, add garlic and sauté for 1-2 minutes.",
+        "Stir in basil pesto and cooked pasta, tossing to combine.",
+        "Sprinkle with Parmesan cheese and season with salt and pepper.",
+        "Serve hot and enjoy!"
+      ]
+    },
+    {
+      "name": "Greek Yogurt Parfait",
+      "kcal": 250,
+      "time": "5 min",
+      "ingredients": [
+        "1 cup Greek yogurt",
+        "1/2 cup granola",
+        "1/4 cup mixed berries",
+        "1 tbsp honey",
+        "1 tsp chia seeds"
+      ],
+      "instructions": [
+        "Layer Greek yogurt at the bottom of a glass.",
+        "Top with granola and mixed berries.",
+        "Drizzle with honey and sprinkle chia seeds.",
+        "Serve immediately or refrigerate for later."
+      ]
+    },
+    {
+      "name": "Quinoa Salad",
+      "kcal": 300,
+      "time": "15 min",
+      "ingredients": [
+        "1 cup cooked quinoa",
+        "1/2 cup diced cucumber",
+        "1/2 cup diced tomato",
+        "1/4 cup feta cheese",
+        "2 tbsp olive oil",
+        "1 tbsp lemon juice",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        "In a large bowl, combine cooked quinoa, cucumber, tomato, and feta cheese.",
+        "Drizzle with olive oil and lemon juice.",
+        "Season with salt and pepper.",
+        "Toss well and serve chilled."
+      ]
+    },
+    {
+      "name": "Protein Smoothie",
+      "kcal": 200,
+      "time": "5 min",
+      "ingredients": [
+        "1 scoop protein powder",
+        "1 cup almond milk",
+        "1 banana",
+        "1 tbsp peanut butter",
+        "1/2 cup ice"
+      ],
+      "instructions": [
+        "Add protein powder, almond milk, banana, peanut butter, and ice to a blender.",
+        "Blend until smooth and creamy.",
+        "Pour into a glass and enjoy your protein-packed smoothie!"
+      ]
+    },
+    {
+      "name": "Keto Salad",
+      "kcal": 350,
+      "time": "10 min",
+      "ingredients": [
+        "2 cups mixed greens",
+        "1/2 avocado, sliced",
+        "1/4 cup cherry tomatoes",
+        "2 tbsp olive oil",
+        "1 tbsp lemon juice",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        "In a bowl, combine mixed greens, avocado slices, and cherry tomatoes.",
+        "Drizzle with olive oil and lemon juice.",
+        "Season with salt and pepper.",
+        "Toss lightly and serve immediately."
+      ]
+    },
+    {
+      "name": "Avocado Toast",
+      "kcal": 250,
+      "time": "5 min",
+      "ingredients": [
+        "2 slices whole grain bread",
+        "1/2 avocado, mashed",
+        "1 tbsp olive oil",
+        "Salt and pepper to taste",
+        "1/4 tsp red pepper flakes (optional)"
+      ],
+      "instructions": [
+        "Toast the bread slices until golden brown.",
+        "Spread mashed avocado on each slice.",
+        "Drizzle with olive oil and sprinkle with salt, pepper, and red pepper flakes.",
+        "Serve immediately."
+      ]
+    },
+    {
+      "name": "Chicken Caesar Salad",
+      "kcal": 400,
+      "time": "15 min",
+      "ingredients": [
+        "2 cups romaine lettuce",
+        "1 grilled chicken breast, sliced",
+        "1/4 cup Caesar dressing",
+        "1/4 cup croutons",
+        "2 tbsp Parmesan cheese"
+      ],
+      "instructions": [
+        "In a large bowl, toss romaine lettuce with Caesar dressing.",
+        "Top with sliced grilled chicken, croutons, and Parmesan cheese.",
+        "Serve immediately."
+      ]
+    },
+    {
+      "name": "Grilled Salmon",
+      "kcal": 450,
+      "time": "20 min",
+      "ingredients": [
+        "2 salmon fillets",
+        "1 tbsp olive oil",
+        "1 lemon, sliced",
+        "1 clove garlic, minced",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        "Preheat grill to medium heat.",
+        "Brush salmon fillets with olive oil and season with garlic, salt, and pepper.",
+        "Grill salmon for 6-8 minutes on each side.",
+        "Serve with lemon slices and enjoy."
+      ]
+    },
+    {
+      "name": "Vegan Buddha Bowl",
+      "kcal": 350,
+      "time": "15 min",
+      "ingredients": [
+        "1 cup cooked brown rice",
+        "1/2 cup chickpeas",
+        "1/4 cup shredded carrots",
+        "1/4 cup sliced avocado",
+        "2 tbsp tahini dressing"
+      ],
+      "instructions": [
+        "Layer brown rice at the bottom of a bowl.",
+        "Top with chickpeas, shredded carrots, and avocado slices.",
+        "Drizzle with tahini dressing.",
+        "Serve immediately."
+      ]
+    },
+    {
+      "name": "Turkey Wrap",
+      "kcal": 300,
+      "time": "10 min",
+      "ingredients": [
+        "1 whole wheat tortilla",
+        "2 slices turkey breast",
+        "1 slice Swiss cheese",
+        "1/4 cup mixed greens",
+        "1 tbsp mustard"
+      ],
+      "instructions": [
+        "Place turkey breast slices and Swiss cheese on a whole wheat tortilla.",
+        "Add mixed greens and drizzle with mustard.",
+        "Roll up the tortilla tightly and slice in half.",
+        "Serve chilled or at room temperature."
+      ]
+    },
+    {
+      "name": "Chicken Stir Fry",
+      "kcal": 500,
+      "time": "15 min",
+      "ingredients": [
+        "1 chicken breast, diced",
+        "1/2 cup bell peppers, sliced",
+        "1/2 cup broccoli florets",
+        "2 tbsp soy sauce",
+        "1 tbsp sesame oil",
+        "1 clove garlic, minced"
+      ],
+      "instructions": [
+        "Heat sesame oil in a pan, add garlic, and sauté for 1 minute.",
+        "Add chicken and stir fry until fully cooked.",
+        "Add bell peppers and broccoli, stir fry for 3-4 minutes.",
+        "Stir in soy sauce and cook for another minute.",
+        "Serve hot over rice or noodles."
+      ]
+    }
+  ]
+}
