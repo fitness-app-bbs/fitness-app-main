@@ -1,0 +1,7 @@
+{
+  "name": "Dumbbell Press",
+  "iconUrl": "assets/images/dumbbell_press.png",
+  "description": "The Dumbbell Press is a versatile strength-building exercise that targets your chest, shoulders, and triceps. Using dumbbells adds an element of instability, engaging your stabilizer muscles more.",
+  "instruction": "How to Perform:\n1. Lie on a flat bench, holding a dumbbell in each hand at chest height with palms facing forward.\n2. Press the dumbbells up by extending your arms, squeezing your chest at the top.\n3. Lower the weights back to your chest with control.\n\nVariants:\n- Incline Dumbbell Press: Use an incline bench to shift focus to the upper chest.\n- Neutral Grip Dumbbell Press: Hold the dumbbells with palms facing each other to reduce shoulder strain.\n- Single-Arm Dumbbell Press: Perform one arm at a time to improve unilateral strength and stability.",
+  "imageUrl": "assets/images/dumbbell_press.png"
+}

@@ -1,0 +1,18 @@
+{
+  "invite_friends_title": "Invite your friends!",
+  "invite_friends_description": "See who is leading the leaderboard.",
+  "invite_button": "Invite",
+  "leaderboard_title": "Top Rankings",
+  "leaderboard": [
+    {"name": "John Doe", "score": 1200},
+    {"name": "Jane Smith", "score": 1150},
+    {"name": "Alice Johnson", "score": 1100},
+    {"name": "Bob Brown", "score": 900},
+    {"name": "Charlie Davis", "score": 850},
+    {"name": "Haley Horn", "score": 700},
+    {"name": "James Henrison", "score": 657},
+    {"name": "Max Betel", "score": 546},
+    {"name": "Bobie Kleid", "score": 321},
+    {"name": "Chuck Bass", "score": 190}
+  ]
+}
