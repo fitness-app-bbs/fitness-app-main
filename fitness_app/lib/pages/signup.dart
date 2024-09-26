@@ -1,9 +1,35 @@
 import 'package:FitnessApp/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  Map<String, dynamic>? localizedStrings;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalizedStrings();
+  }
+
+  Future<void> _loadLocalizedStrings() async {
+    String jsonString = await rootBundle.loadString('assets/json/signup.json');
+    setState(() {
+      localizedStrings = json.decode(jsonString);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (localizedStrings == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Center(
@@ -15,7 +41,7 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  'Create a new Account',
+                  localizedStrings!['signup_title'],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 32,
@@ -26,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 40),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: localizedStrings!['name_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -38,7 +64,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: localizedStrings!['email_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -50,7 +76,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: localizedStrings!['password_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -63,7 +89,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Confirm Password',
+                    labelText: localizedStrings!['confirm_password_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -86,18 +112,17 @@ class SignUpPage extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
                   child: Text(
-                    'Sign Up',
+                    localizedStrings!['signup_button'],
                     style: TextStyle(fontSize: 18, color: AppColors.white),
                   ),
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "---------  or  ---------",
+                  localizedStrings!['or_text'],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: AppColors.light,
-                      fontSize: 16
-                  ),
+                      fontSize: 16),
                 ),
                 SizedBox(height: 10),
                 Row(
@@ -105,21 +130,21 @@ class SignUpPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        // Handle Facebook sign up
+
                       },
                       icon: Icon(Icons.facebook),
                     ),
                     IconButton(
                       onPressed: () {
-                        // Handle Google sign up
+
                       },
                       icon: Icon(Icons.g_mobiledata),
                     ),
                     IconButton(
-                        onPressed: (){
-                          //handle Apple sign up
-                        },
-                        icon: Icon(Icons.apple)
+                      onPressed: () {
+
+                      },
+                      icon: Icon(Icons.apple),
                     ),
                   ],
                 ),
@@ -129,7 +154,7 @@ class SignUpPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    "Already have an account? Login",
+                    localizedStrings!['already_account_text'],
                     style: TextStyle(
                       color: AppColors.light,
                       fontSize: 16,

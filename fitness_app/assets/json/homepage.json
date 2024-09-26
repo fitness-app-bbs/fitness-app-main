@@ -19,6 +19,5 @@
   "workout_card_arms_time": "35 Minutes",
   "food_card_fruit_granola": "Fruit Granola",
   "food_card_pesto_pasta": "Pesto Pasta",
-  "radial_progress_kcal": "1731 kcal left",
-  "radial_progress_value": 0.7
+  "calories_left": "kcal left"
 }

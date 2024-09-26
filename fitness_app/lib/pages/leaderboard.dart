@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
 import 'package:share/share.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-class LeaderboardPage extends StatelessWidget {
-  final List<Map<String, dynamic>> leaderboard = [
-    {"name": "John Doe", "score": 1200, "rank": 1},
-    {"name": "Jane Smith", "score": 1150, "rank": 2},
-    {"name": "Alice Johnson", "score": 1100, "rank": 3},
-    {"name": "Bob Brown", "score": 900, "rank": 4},
-    {"name": "Charlie Davis", "score": 850, "rank": 5},
-    {"name": "Haley Horn", "score": 700, "rank": 6},
-    {"name": "James Henrison", "score": 657, "rank": 7},
-    {"name": "Max Betel", "score": 546, "rank": 8},
-    {"name": "Bobie Kleid", "score": 321, "rank": 9},
-    {"name": "Chuck Bass", "score": 190, "rank": 10},
-  ];
+class LeaderboardPage extends StatefulWidget {
+  @override
+  _LeaderboardPageState createState() => _LeaderboardPageState();
+}
+
+class _LeaderboardPageState extends State<LeaderboardPage> {
+  Map<String, dynamic>? localizedStrings;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalizedStrings();
+  }
+
+  Future<void> _loadLocalizedStrings() async {
+    String jsonString = await rootBundle.loadString('assets/json/leaderboard.json');
+    setState(() {
+      localizedStrings = json.decode(jsonString);
+      _calculateRanks();
+    });
+  }
+
+  void _calculateRanks() {
+    List<dynamic> leaderboard = localizedStrings!['leaderboard'];
+    leaderboard.sort((a, b) => b['score'].compareTo(a['score']));
+    for (int i = 0; i < leaderboard.length; i++) {
+      leaderboard[i]['rank'] = i + 1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (localizedStrings == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -36,14 +58,12 @@ class LeaderboardPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Invite Friends Section
               _buildInviteFriendsCard(context),
 
               SizedBox(height: 24),
 
-              // Leaderboard Title
               Text(
-                'Top Rankings',
+                localizedStrings!['leaderboard_title'],
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -52,13 +72,12 @@ class LeaderboardPage extends StatelessWidget {
               ),
               SizedBox(height: 16),
 
-              // Leaderboard List
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: leaderboard.length,
+                itemCount: localizedStrings!['leaderboard'].length,
                 itemBuilder: (context, index) {
-                  return _buildLeaderboardCard(leaderboard[index]);
+                  return _buildLeaderboardCard(localizedStrings!['leaderboard'][index]);
                 },
               ),
             ],
@@ -68,7 +87,6 @@ class LeaderboardPage extends StatelessWidget {
     );
   }
 
-  // Card for inviting friends
   Widget _buildInviteFriendsCard(BuildContext context) {
     return Container(
       decoration: _buildBoxDecoration(),
@@ -80,7 +98,7 @@ class LeaderboardPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Invite your friends!',
+                localizedStrings!['invite_friends_title'],
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -89,7 +107,7 @@ class LeaderboardPage extends StatelessWidget {
               ),
               SizedBox(height: 8),
               Text(
-                'See who is leading the leaderboard.',
+                localizedStrings!['invite_friends_description'],
                 style: TextStyle(color: AppColors.gray),
               ),
             ],
@@ -105,7 +123,7 @@ class LeaderboardPage extends StatelessWidget {
               Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
             },
             child: Text(
-              'Invite',
+              localizedStrings!['invite_button'],
               style: TextStyle(color: AppColors.white),
             ),
           ),
@@ -114,7 +132,6 @@ class LeaderboardPage extends StatelessWidget {
     );
   }
 
-  // Card for each leaderboard entry
   Widget _buildLeaderboardCard(Map<String, dynamic> user) {
     return Container(
       decoration: _buildBoxDecorationWithBorder(user['rank']),
@@ -206,7 +223,6 @@ class LeaderboardPage extends StatelessWidget {
     return Icon(Icons.emoji_events, color: trophyColor);
   }
 
-  // Reusable BoxDecoration for consistency in design
   BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
       color: AppColors.white,

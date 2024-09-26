@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  Map<String, dynamic>? localizedStrings;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalizedStrings();
+  }
+
+  Future<void> _loadLocalizedStrings() async {
+    String jsonString = await rootBundle.loadString('assets/json/login.json');
+    setState(() {
+      localizedStrings = json.decode(jsonString);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (localizedStrings == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Center(
@@ -15,12 +41,12 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Image.asset(
-                    'assets/images/logo_purple_transp.png',
-                        height: 200,
+                  localizedStrings!['logo_path'],
+                  height: 200,
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Welcome back',
+                  localizedStrings!['welcome_text'],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 32,
@@ -31,7 +57,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 40),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: localizedStrings!['email_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -43,7 +69,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: localizedStrings!['password_label'],
                     labelStyle: TextStyle(
                       color: AppColors.medium,
                     ),
@@ -66,7 +92,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
                   child: Text(
-                    'Login',
+                    localizedStrings!['login_button_text'],
                     style: TextStyle(fontSize: 18, color: AppColors.white),
                   ),
                 ),
@@ -76,7 +102,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushNamed(context, '/signup');
                   },
                   child: Text(
-                    "Don't have an account? Sign up",
+                    localizedStrings!['signup_text'],
                     style: TextStyle(
                       color: AppColors.light,
                       fontSize: 16,
