@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:pedometer/pedometer.dart';
 
 double radians(double degrees) {
   return degrees * (math.pi / 180);
@@ -19,17 +20,38 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Map<String, dynamic>? localizedStrings;
+  Stream<StepCount>? _stepCountStream;
+  int _steps = 0;
 
   @override
   void initState() {
     super.initState();
     _loadLocalizedStrings();
+    _initializePedometer();
   }
 
   Future<void> _loadLocalizedStrings() async {
     String jsonString = await rootBundle.loadString('assets/json/homepage.json');
     setState(() {
       localizedStrings = json.decode(jsonString);
+    });
+  }
+
+  void _initializePedometer() {
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream!.listen(_onStepCount).onError(_onStepCountError);
+  }
+
+  void _onStepCount(StepCount event) {
+    setState(() {
+      _steps = event.steps;
+    });
+  }
+
+  void _onStepCountError(error) {
+    print("Pedometer Error: $error");
+    setState(() {
+      _steps = 0;
     });
   }
 
@@ -56,6 +78,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Pedometer Widget at the top
+              _buildPedometerWidget(),
+              SizedBox(height: 32),
+
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -243,9 +269,47 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Pedometer widget
+  Widget _buildPedometerWidget() {
+    return Container(
+      decoration: _buildBoxDecoration(),
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Steps Taken",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                _steps.toString(),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ],
+          ),
+          Icon(
+            Icons.directions_walk,
+            size: 50,
+            color: Colors.blueAccent,
+          ),
+        ],
+      ),
+    );
+  }
 
 
-Widget _buildActivityCardLeft(String title, String count, String subtitle, IconData icon, Color color) {
+
+  Widget _buildActivityCardLeft(String title, String count, String subtitle, IconData icon, Color color) {
     return Container(
       decoration: _buildBoxDecoration(),
       padding: EdgeInsets.all(16),
