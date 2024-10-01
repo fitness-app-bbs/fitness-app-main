@@ -4,7 +4,7 @@
   "invite_button": "Invite",
   "leaderboard_title": "Top Rankings",
   "leaderboard": [
-    {"name": "John Doe", "score": 1200},
+    {"name": "John Doe", "score": 1100},
     {"name": "Jane Smith", "score": 1150},
     {"name": "Alice Johnson", "score": 1100},
     {"name": "Bob Brown", "score": 900},
