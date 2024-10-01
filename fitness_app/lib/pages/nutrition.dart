@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:FitnessApp/utils/colors.dart';
 import 'meal_recipe_page.dart';
+import 'calorie_calculator_page.dart';
+
 
 double radians(double degrees) {
   return degrees * (math.pi / 180);
@@ -33,7 +35,6 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-// Main NutritionDashboard widget
 class NutritionDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -106,10 +107,33 @@ class NutritionDashboard extends StatelessWidget {
                               width: width * 0.28,
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ],
+                ),
+              ),
+              SizedBox(height: 24),
+              // Moved the button here
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CalorieCalculatorPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.dark,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                    'Calculate Your Calorie Requirement',
+                    style: TextStyle(color: AppColors.white),
+                  ),
                 ),
               ),
               SizedBox(height: 24),
