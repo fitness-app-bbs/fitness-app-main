@@ -1,0 +1,10 @@
+{
+  "signup_title": "Create a new Account",
+  "name_label": "Name",
+  "email_label": "Email",
+  "password_label": "Password",
+  "confirm_password_label": "Confirm Password",
+  "signup_button": "Sign Up",
+  "or_text": "---------  or  ---------",
+  "already_account_text": "Already have an account? Login"
+}
