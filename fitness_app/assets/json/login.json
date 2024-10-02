@@ -4,5 +4,6 @@
   "email_label": "Email",
   "password_label": "Password",
   "login_button_text": "Login",
-  "signup_text": "Don't have an account? Sign up"
+  "signup_text": "Don't have an account? Sign up",
+  "login_error": "Incorrect email or password"
 }
