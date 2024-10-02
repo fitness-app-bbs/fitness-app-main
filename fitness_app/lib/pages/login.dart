@@ -10,11 +10,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Map<String, dynamic>? localizedStrings;
+  Map<String, dynamic>? loginUser;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  String errorMessage = '';
 
   @override
   void initState() {
     super.initState();
     _loadLocalizedStrings();
+    _loadLoginUser();
   }
 
   Future<void> _loadLocalizedStrings() async {
@@ -24,9 +30,31 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  Future<void> _loadLoginUser() async {
+    String credentialsString = await rootBundle.loadString('assets/json/user.json');
+    setState(() {
+      loginUser = json.decode(credentialsString);
+    });
+  }
+
+  void _login() {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    if (loginUser == null) return;
+
+    if (email == loginUser!['email'] && password == loginUser!['password']) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      setState(() {
+        errorMessage = localizedStrings!['login_error'];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (localizedStrings == null) {
+    if (localizedStrings == null || loginUser == null) {
       return Center(child: CircularProgressIndicator());
     }
 
@@ -56,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 40),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: localizedStrings!['email_label'],
                     labelStyle: TextStyle(
@@ -68,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: localizedStrings!['password_label'],
                     labelStyle: TextStyle(
@@ -79,7 +109,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   obscureText: true,
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 20),
+                if (errorMessage.isNotEmpty)
+                  Text(
+                    errorMessage,
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.dark,
@@ -88,9 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16),
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
+                  onPressed: _login,
                   child: Text(
                     localizedStrings!['login_button_text'],
                     style: TextStyle(fontSize: 18, color: AppColors.white),
