@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -132,7 +133,8 @@ class SettingsPage extends StatelessWidget {
             TextButton(
               child: Text('Logout'),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login');
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, '/auth');
               },
             ),
           ],
