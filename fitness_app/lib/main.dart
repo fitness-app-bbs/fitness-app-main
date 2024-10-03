@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:english_words/english_words.dart';
+import 'pages/auth_page.dart';
 import 'pages/homepage.dart';
 import 'pages/login.dart';
 import 'pages/signup.dart';
@@ -8,8 +9,15 @@ import 'utils/colors.dart';
 import 'pages/leaderboard.dart';
 import 'pages/workouts.dart';
 import 'pages/nutrition.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -25,8 +33,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        initialRoute: '/login',
+        initialRoute: '/auth',
         routes: {
+          '/auth': (context) => AuthPage(),
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignUpPage(),
           '/home': (context) => MyHomePage(),

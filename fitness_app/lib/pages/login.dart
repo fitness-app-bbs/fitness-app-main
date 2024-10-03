@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -37,20 +38,67 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void _login() {
-    String email = emailController.text;
-    String password = passwordController.text;
+  void signUserIn() async {
+  // Show loading dialog while signing in
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
 
-    if (loginUser == null) return;
+  String email = emailController.text.trim();
+  String password = passwordController.text.trim();
 
-    if (email == loginUser!['email'] && password == loginUser!['password']) {
-      Navigator.pushReplacementNamed(context, '/home');
+  try {
+    // Attempt to sign in with email and password
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    Navigator.pop(context); // Close loading dialog
+    Navigator.pushReplacementNamed(context, '/home'); // Navigate to home
+  } on FirebaseAuthException catch (e) {
+    Navigator.pop(context); // Close loading dialog
+
+    // Log the error
+    print("FirebaseAuth Exception: ${e.message}, Code: ${e.code}");
+
+    // Show error dialog if user is not found or password is incorrect
+    if (e.code == 'invalid-email' || e.code == 'invalid-credential' || e.code == 'channel-error') {
+      wrongDetails(); // Show the popup for incorrect login details
     } else {
-      setState(() {
-        errorMessage = localizedStrings!['login_error'];
-      });
+      // Handle other errors (optional)
+      print("Other FirebaseAuth Error: ${e.message}");
     }
+  } catch (e) {
+    // Handle any other exceptions
+    Navigator.pop(context); // Close loading dialog
+    print("Unknown error occurred: $e");
   }
+}
+
+  void wrongDetails() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Login Failed'),
+        content: const Text('The email or password you entered is incorrect. Please try again.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -110,13 +158,6 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
                 SizedBox(height: 20),
-                if (errorMessage.isNotEmpty)
-                  Text(
-                    errorMessage,
-                    style: TextStyle(color: Colors.red),
-                    textAlign: TextAlign.center,
-                  ),
-                SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.dark,
@@ -125,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16),
                   ),
-                  onPressed: _login,
+                  onPressed: signUserIn,
                   child: Text(
                     localizedStrings!['login_button_text'],
                     style: TextStyle(fontSize: 18, color: AppColors.white),
