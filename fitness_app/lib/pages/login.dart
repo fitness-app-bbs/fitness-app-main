@@ -3,6 +3,7 @@ import 'package:FitnessApp/utils/colors.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:FitnessApp/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,8 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   Map<String, dynamic>? localizedStrings;
   Map<String, dynamic>? loginUser;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   String errorMessage = '';
 
   @override
@@ -40,65 +41,65 @@ class _LoginPageState extends State<LoginPage> {
 
   void signUserIn() async {
   // Show loading dialog while signing in
-  showDialog(
-    context: context,
-    builder: (context) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    },
-  );
-
-  String email = emailController.text.trim();
-  String password = passwordController.text.trim();
-
-  try {
-    // Attempt to sign in with email and password
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
-    Navigator.pop(context); // Close loading dialog
-    Navigator.pushReplacementNamed(context, '/home'); // Navigate to home
-  } on FirebaseAuthException catch (e) {
-    Navigator.pop(context); // Close loading dialog
 
-    // Log the error
-    print("FirebaseAuth Exception: ${e.message}, Code: ${e.code}");
-
-    // Show error dialog if user is not found or password is incorrect
-    if (e.code == 'invalid-email' || e.code == 'invalid-credential' || e.code == 'channel-error') {
-      wrongDetails(); // Show the popup for incorrect login details
-    } else {
-      // Handle other errors (optional)
-      print("Other FirebaseAuth Error: ${e.message}");
-    }
-  } catch (e) {
-    // Handle any other exceptions
-    Navigator.pop(context); // Close loading dialog
-    print("Unknown error occurred: $e");
-  }
-}
-
-  void wrongDetails() {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Login Failed'),
-        content: const Text('The email or password you entered is incorrect. Please try again.'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
+    try {
+      // Attempt to sign in with email and password
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
       );
-    },
-  );
-}
+      Navigator.pop(context); // Close loading dialog
+      Navigator.pushReplacementNamed(context, '/auth'); // Navigate to home
+      // Catch FirebaseAuth exceptions
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context); // Close loading dialog
+
+      // Log the error
+      print("FirebaseAuth Exception: ${e.message}, Code: ${e.code}");
+
+      // Show error dialog if email is not found or password is incorrect
+      if (e.code == 'invalid-email' || e.code == 'invalid-credential' || e.code == 'channel-error') {
+        detailError('Login Failed', 'The email or password you entered is incorrect. Please try again.'); // Show the popup for incorrect login details
+      } else {
+        // Handle other Firebase exceptions
+        detailError('Unknown Error', 'An unexpected error occurred. Please try again later.'); // Show the popup for unknown error
+      }
+    } catch (e) {
+      // Handle any other errors
+      Navigator.pop(context); // Close loading dialog
+      print("Unknown error occurred: $e");
+      detailError('Unknown Error', 'An unexpected error occurred. Please try again later.'); // Show the popup for unknown error
+    }
+  }
+
+  //Show Error Popup
+  void detailError(title, message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +172,30 @@ class _LoginPageState extends State<LoginPage> {
                     localizedStrings!['login_button_text'],
                     style: TextStyle(fontSize: 18, color: AppColors.white),
                   ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+
+                      },
+                      icon: Icon(Icons.facebook),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await AuthService().signInWithGoogle(context);
+                      },
+                      icon: Icon(Icons.g_mobiledata),
+                    ),
+                    IconButton(
+                      onPressed: () {
+
+                      },
+                      icon: Icon(Icons.apple),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 TextButton(
