@@ -3,17 +3,16 @@ import 'package:FitnessApp/utils/colors.dart';
 import 'package:FitnessApp/pages/settings.dart';
 import 'package:FitnessApp/pages/workouts.dart';
 import 'package:FitnessApp/pages/nutrition.dart';
-import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'dart:math' as math;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
 
-double radians(double degrees) {
-  return degrees * (math.pi / 180);
-}
-
 class HomePage extends StatefulWidget {
+  final Function (int) onTileTap;
+
+  HomePage({required this.onTileTap});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -61,9 +60,6 @@ class _HomePageState extends State<HomePage> {
       return Center(child: CircularProgressIndicator());
     }
 
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -78,16 +74,12 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Pedometer Widget at the top
               _buildPedometerWidget(),
               SizedBox(height: 32),
 
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
+                  widget.onTileTap(3);
                 },
                 child: Container(
                   decoration: _buildBoxDecoration(),
@@ -124,23 +116,19 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 32),
 
-              // Activity Summary Section
               Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NutritionDashboard()),
-                      );
+                      widget.onTileTap(2);
                     },
                     child: Expanded(
                       flex: 40,
                       child: Container(
                         height: 200,
                         child: _RadialProgress(
-                          width: width * 0.4,
-                          height: width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.width * 0.4,
                           progress: 0.7,
                         ),
                       ),
@@ -191,10 +179,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WorkoutPage()),
-                        );
+                        widget.onTileTap(1);
                       },
                       child: _buildWorkoutCard(
                         localizedStrings!['workout_card_cardio'],
@@ -207,10 +192,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(width: 16),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WorkoutPage()),
-                        );
+                        widget.onTileTap(1);
                       },
                       child: _buildWorkoutCard(
                         localizedStrings!['workout_card_arms'],
@@ -223,45 +205,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => NutritionDashboard()),
-                        );
-                      },
-                      child: _buildFoodCard(
-                        localizedStrings!['food_card_fruit_granola'],
-                        Colors.orange,
-                        'assets/images/fruit_granola.png',
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => NutritionDashboard()),
-                        );
-                      },
-                      child: _buildFoodCard(
-                        localizedStrings!['food_card_pesto_pasta'],
-                        Colors.indigo,
-                        'assets/images/pesto_pasta.png',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 32),
             ],
           ),
         ),
@@ -269,7 +212,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Pedometer widget
+// Pedometer widget
   Widget _buildPedometerWidget() {
     return Container(
       decoration: _buildBoxDecoration(),
@@ -432,7 +375,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // White text color
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 8),
@@ -440,7 +383,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(height: 30), // Space between text and image
-          //SizedBox(width: 30), // Space between text and image
 
           // Image on the right
           Image.asset(imagePath, height: 80, fit: BoxFit.cover),
@@ -496,16 +438,16 @@ class _RadialProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: _buildBoxDecoration(),
-      padding: EdgeInsets.all(16),  // This will create padding around the progress
-      width: 200,  // Keep a fixed width for the container
+      padding: EdgeInsets.all(16),
+      width: 200,
       height: height,
-      child: Stack(  // Use Stack to layer the CustomPaint and the content
+      child: Stack(
         children: [
           CustomPaint(
             painter: _RadialPainter(progress: progress),
-            size: Size(width, height),  // Define the size for the radial progress
+            size: Size(width, height),
           ),
-          Center(  // Center the content on top of the radial progress
+          Center(
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
