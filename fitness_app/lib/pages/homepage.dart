@@ -79,7 +79,10 @@ class _HomePageState extends State<HomePage> {
 
               GestureDetector(
                 onTap: () {
-                  widget.onTileTap(3);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                  );
                 },
                 child: Container(
                   decoration: _buildBoxDecoration(),
