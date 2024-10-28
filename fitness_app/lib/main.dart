@@ -92,11 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
       SettingsPage(),
       CalorieCalculatorPage(),
     ]);
-    void _openSettingsPage() {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => SettingsPage()),
-      );
-    }
   }
 
   @override
