@@ -169,9 +169,14 @@ class _HomePageState extends State<HomePage> {
 
               SizedBox(height: 20),
 
-              _buildProgressCard(
-                localizedStrings!['progress_title'],
-                localizedStrings!['progress_message'],
+              GestureDetector(
+                onTap: (){
+                  widget.onTileTap(3);
+                },
+                child: _buildProgressCard(
+                    localizedStrings!['progress_title'],
+                    localizedStrings!['progress_message'],
+                  ),
               ),
 
               SizedBox(height: 30),
@@ -208,6 +213,36 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        widget.onTileTap(2);
+                      },
+                      child: _buildFoodCard(
+                        localizedStrings!['food_card_fruit_granola'],
+                        Colors.orange,
+                        'assets/images/fruit_granola.png',
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    GestureDetector(
+                      onTap: () {
+                        widget.onTileTap(2);
+                      },
+                      child: _buildFoodCard(
+                        localizedStrings!['food_card_pesto_pasta'],
+                        Colors.indigo,
+                        'assets/images/pesto_pasta.png',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 32),
             ],
           ),
         ),
