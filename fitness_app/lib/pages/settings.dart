@@ -3,6 +3,10 @@ import 'package:FitnessApp/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatelessWidget {
+  final VoidCallback onBack;
+
+  SettingsPage({required this.onBack});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +19,10 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: AppColors.white,
         iconTheme: IconThemeData(color: AppColors.black),
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: onBack,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,9 +34,7 @@ class SettingsPage extends StatelessWidget {
               title: Text('Profile'),
               subtitle: Text('Edit your personal information'),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             Divider(),
 
@@ -38,9 +44,7 @@ class SettingsPage extends StatelessWidget {
               subtitle: Text('Enable or disable app notifications'),
               value: false,
               activeColor: AppColors.medium,
-              onChanged: (bool value) {
-
-              },
+              onChanged: (bool value) {},
             ),
             Divider(),
 
@@ -50,9 +54,7 @@ class SettingsPage extends StatelessWidget {
               subtitle: Text('Toggle between light and dark mode'),
               value: false,
               activeColor: AppColors.medium,
-              onChanged: (bool value) {
-
-              },
+              onChanged: (bool value) {},
             ),
             Divider(),
 
@@ -62,9 +64,7 @@ class SettingsPage extends StatelessWidget {
               title: Text('Language'),
               subtitle: Text('Change the app language'),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             Divider(),
 
@@ -74,9 +74,7 @@ class SettingsPage extends StatelessWidget {
               title: Text('Privacy & Security'),
               subtitle: Text('Manage your privacy settings'),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             Divider(),
 
@@ -86,9 +84,7 @@ class SettingsPage extends StatelessWidget {
               title: Text('Help & Support'),
               subtitle: Text('Get support or contact us'),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             Divider(),
 
@@ -97,8 +93,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.info_outline, color: AppColors.medium),
               title: Text('App Version'),
               subtitle: Text('0.0.9'),
-              onTap: () {
-              },
+              onTap: () {},
             ),
             Divider(),
 

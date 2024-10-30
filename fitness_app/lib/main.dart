@@ -89,7 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
       MainWorkoutScreen(),
       NutritionDashboard(),
       LeaderboardPage(),
-      SettingsPage(),
       CalorieCalculatorPage(),
     ]);
   }

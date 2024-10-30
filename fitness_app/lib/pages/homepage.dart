@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
 
 class HomePage extends StatefulWidget {
-  final Function (int) onTileTap;
+  final Function(int) onTileTap;
 
   HomePage({required this.onTileTap});
 
@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
   Map<String, dynamic>? localizedStrings;
   Stream<StepCount>? _stepCountStream;
   int _steps = 0;
@@ -54,6 +55,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _goToSettingsPage() {
+    setState(() {
+      _currentIndex = 1;
+    });
+  }
+
+  void _goBackToHomePage() {
+    setState(() {
+      _currentIndex = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (localizedStrings == null) {
@@ -68,48 +81,55 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.white,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildPedometerWidget(),
-              SizedBox(height: 32),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [
+          _buildHomeContent(),
+          SettingsPage(onBack: _goBackToHomePage),
+        ],
+      ),
+    );
+  }
 
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-                child: Container(
-                  decoration: _buildBoxDecoration(),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('assets/images/haley_image.png'),
-                      ),
-                      SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            localizedStrings!['greeting'],
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+  Widget _buildHomeContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildPedometerWidget(),
+            SizedBox(height: 32),
+
+            GestureDetector(
+              onTap: _goToSettingsPage,
+              child: Container(
+                decoration: _buildBoxDecoration(),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/haley_image.png'),
+                    ),
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          localizedStrings!['greeting'],
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),
+                        ),
+                        Text(
+                          "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                          ),
+
                           ),
                         ],
                       ),
@@ -246,8 +266,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
 // Pedometer widget
