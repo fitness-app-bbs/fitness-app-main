@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedIndex = index;
         });
       }),
-      WorkoutPage(),
+      MainWorkoutScreen(),
       NutritionDashboard(),
       LeaderboardPage(),
       SettingsPage(),

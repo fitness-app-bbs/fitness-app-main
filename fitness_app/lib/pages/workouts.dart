@@ -29,13 +29,16 @@ class Workout {
   }
 }
 
-class WorkoutPage extends StatefulWidget {
+class MainWorkoutScreen extends StatefulWidget {
   @override
-  _WorkoutPageState createState() => _WorkoutPageState();
+  _MainWorkoutScreenState createState() => _MainWorkoutScreenState();
 }
 
-class _WorkoutPageState extends State<WorkoutPage> {
+class _MainWorkoutScreenState extends State<MainWorkoutScreen> {
   List<Workout> workouts = [];
+  bool isLoading = true;
+  int currentIndex = 0;
+  Workout? selectedWorkout;
 
   @override
   void initState() {
@@ -61,102 +64,115 @@ class _WorkoutPageState extends State<WorkoutPage> {
     for (final file in workoutFiles) {
       final String response = await rootBundle.loadString(file);
       final data = await json.decode(response);
-      setState(() {
-        workouts.add(Workout.fromJson(data));
-      });
+      workouts.add(Workout.fromJson(data));
     }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void navigateToDetail(Workout workout) {
+    setState(() {
+      selectedWorkout = workout;
+      currentIndex = 1;
+    });
+  }
+
+  void goBackToMain() {
+    setState(() {
+      currentIndex = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Text(
-          'Choose a Workout',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: workouts.isEmpty
+      body: isLoading
           ? Center(child: CircularProgressIndicator())
-          : Column(
+          : IndexedStack(
+        index: currentIndex,
         children: [
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                childAspectRatio: 0.9,
-              ),
-              itemCount: workouts.length,
-              itemBuilder: (context, index) {
-                final workout = workouts[index];
-                return GestureDetector(
-                  onTap: () {
-                    // Navigate to the workout details page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            WorkoutDetailPage(workout: workout),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    elevation: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          workout.iconUrl,
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          workout.name,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          WorkoutPage(workouts: workouts, onWorkoutSelected: navigateToDetail),
+          if (selectedWorkout != null)
+            WorkoutDetailPage(workout: selectedWorkout!, onBack: goBackToMain),
         ],
       ),
     );
   }
 }
 
-class WorkoutDetailPage extends StatelessWidget {
-  final Workout workout;
+class WorkoutPage extends StatelessWidget {
+  final List<Workout> workouts;
+  final Function(Workout) onWorkoutSelected;
 
-  WorkoutDetailPage({required this.workout});
+  WorkoutPage({required this.workouts, required this.onWorkoutSelected});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
+        title: Text('Choose a Workout'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.9,
+        ),
+        itemCount: workouts.length,
+        itemBuilder: (context, index) {
+          final workout = workouts[index];
+          return GestureDetector(
+            onTap: () => onWorkoutSelected(workout),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              elevation: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(workout.iconUrl, height: 120, fit: BoxFit.contain),
+                  SizedBox(height: 10),
+                  Text(
+                    workout.name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+class WorkoutDetailPage extends StatelessWidget {
+  final Workout workout;
+  final VoidCallback onBack;
+
+  WorkoutDetailPage({required this.workout, required this.onBack});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
         title: Text(workout.name),
-        backgroundColor: AppColors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: onBack,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -164,30 +180,16 @@ class WorkoutDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                workout.imageUrl,
-                height: 400,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+              Image.asset(workout.imageUrl, height: 400, fit: BoxFit.cover),
               SizedBox(height: 20),
               Text(
                 workout.name,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              Text(
-                workout.description,
-                style: TextStyle(fontSize: 16),
-              ),
+              Text(workout.description, style: TextStyle(fontSize: 16)),
               SizedBox(height: 10),
-              Text(
-                workout.instruction,
-                style: TextStyle(fontSize: 16),
-              )
+              Text(workout.instruction, style: TextStyle(fontSize: 16)),
             ],
           ),
         ),
@@ -195,3 +197,4 @@ class WorkoutDetailPage extends StatelessWidget {
     );
   }
 }
+
