@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
-import 'package:share/share.dart';
+//import 'package:share/share.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -120,7 +120,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               ),
             ),
             onPressed: () {
-              Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
+              //Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
             },
             child: Text(
               localizedStrings!['invite_button'],
