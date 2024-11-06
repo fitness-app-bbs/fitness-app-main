@@ -225,7 +225,8 @@ class _HomePageState extends State<HomePage> {
             _buildHorizontalScrollView(context),
           ],
         ),
-      );
+      ),
+    );
   }
 
 
