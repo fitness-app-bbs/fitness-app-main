@@ -14,7 +14,7 @@ android {
         release {
             keyAlias System.getenv('MYAPP_RELEASE_KEY_ALIAS') ?: project.findProperty('MYAPP_RELEASE_KEY_ALIAS')
             keyPassword System.getenv('MYAPP_RELEASE_KEY_PASSWORD') ?: project.findProperty('MYAPP_RELEASE_KEY_PASSWORD')
-            storeFile file("/Users/vw67pfr/Desktop/fitness-app-main-marvin/fitness_app/android/fitness_app_keystore.jks")
+            storeFile file("../fitness_app_keystore.jks")
             storePassword System.getenv('MYAPP_RELEASE_STORE_PASSWORD') ?: project.findProperty('MYAPP_RELEASE_STORE_PASSWORD')
         }
     }
