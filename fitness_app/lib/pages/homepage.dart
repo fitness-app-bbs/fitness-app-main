@@ -92,7 +92,6 @@ class _HomePageState extends State<HomePage> {
       _pedestrianStatus = 'Unknown';
     });
   }
-
   void _goToSettingsPage() {
     setState(() {
       _currentIndex = 1;
@@ -226,8 +225,7 @@ class _HomePageState extends State<HomePage> {
             _buildHorizontalScrollView(context),
           ],
         ),
-      ),
-    );
+      );
   }
 
 

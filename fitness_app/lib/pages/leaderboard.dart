@@ -120,7 +120,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               ),
             ),
             onPressed: () {
-              Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
+              //Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
             },
             child: Text(
               localizedStrings!['invite_button'],
