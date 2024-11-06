@@ -7,27 +7,40 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
-  final Function (int) onTileTap;
+  final Function(int) onTileTap;
 
   HomePage({required this.onTileTap});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
   Map<String, dynamic>? localizedStrings;
   Stream<StepCount>? _stepCountStream;
+  Stream<PedestrianStatus>? _pedestrianStatusStream;
   int _steps = 0;
+  String _pedestrianStatus = 'Unknown';
 
   @override
   void initState() {
     super.initState();
     _loadLocalizedStrings();
     _initializePedometer();
+    _requestActivityPermission();
   }
+
+  Future<void> _requestActivityPermission() async {
+    if (await Permission.activityRecognition.request().isGranted) {
+      _initializePedometer();
+    } else {
+      print("Berechtigung für körperliche Aktivität wurde verweigert.");
+    }
+  }
+
 
   Future<void> _loadLocalizedStrings() async {
     String jsonString = await rootBundle.loadString('assets/json/homepage.json');
@@ -37,20 +50,58 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _initializePedometer() {
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream!.listen(_onStepCount).onError(_onStepCountError);
+    initPlatformState();
   }
 
-  void _onStepCount(StepCount event) {
+  Future<void> initPlatformState() async {
+    // Initialize streams
+    _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
+    _stepCountStream = await Pedometer.stepCountStream;
+
+    // Listen to step count stream
+    _stepCountStream!.listen(onStepCount).onError(onStepCountError);
+
+    // Listen to pedestrian status stream
+    _pedestrianStatusStream!
+        .listen(onPedestrianStatusChanged)
+        .onError(onPedestrianStatusError);
+  }
+
+  void onStepCount(StepCount event) {
     setState(() {
       _steps = event.steps;
     });
   }
 
-  void _onStepCountError(error) {
+  void onPedestrianStatusChanged(PedestrianStatus event) {
+    setState(() {
+      _pedestrianStatus = event.status;
+    });
+  }
+
+  void onStepCountError(error) {
     print("Pedometer Error: $error");
     setState(() {
       _steps = 0;
+    });
+  }
+
+  void onPedestrianStatusError(error) {
+    print("Pedestrian Status Error: $error");
+    setState(() {
+      _pedestrianStatus = 'Unknown';
+    });
+  }
+
+  void _goToSettingsPage() {
+    setState(() {
+      _currentIndex = 1;
+    });
+  }
+
+  void _goBackToHomePage() {
+    setState(() {
+      _currentIndex = 0;
     });
   }
 
@@ -68,219 +119,164 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.white,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildPedometerWidget(),
-              SizedBox(height: 32),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [
+          _buildHomeContent(),
+          SettingsPage(onBack: _goBackToHomePage),
+        ],
+      ),
+    );
+  }
 
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-                child: Container(
-                  decoration: _buildBoxDecoration(),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('assets/images/haley_image.png'),
-                      ),
-                      SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            localizedStrings!['greeting'],
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 32),
-
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      widget.onTileTap(2);
-                    },
-                    child: Expanded(
-                      flex: 40,
-                      child: Container(
-                        height: 200,
-                        child: _RadialProgress(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.width * 0.4,
-                          progress: 0.7,
-                        ),
-                      ),
+  Widget _buildHomeContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: _goToSettingsPage,
+              child: Container(
+                decoration: _buildBoxDecoration(),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/haley_image.png'),
                     ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    flex: 100,
-                    child: Column(
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 92,
-                          child: _buildActivityCardRight(
-                              localizedStrings!['in_progress_title'],
-                              localizedStrings!['in_progress_count'],
-                              localizedStrings!['in_progress_workouts'],
-                              Icons.autorenew, Colors.blue
+                        Text(
+                          localizedStrings!['greeting'],
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        Container(
-                          height: 92,
-                          child: _buildActivityCardRight(
-                              localizedStrings!['time_spent_title'],
-                              localizedStrings!['time_spent_count'],
-                              localizedStrings!['time_spent_minutes'],
-                              Icons.timer, Colors.purple
+                        Text(
+                          "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 20),
-
-              _buildProgressCard(
-                localizedStrings!['progress_title'],
-                localizedStrings!['progress_message'],
-              ),
-
-              SizedBox(height: 30),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        widget.onTileTap(1);
-                      },
-                      child: _buildWorkoutCard(
-                        localizedStrings!['workout_card_cardio'],
-                        localizedStrings!['workout_card_cardio_exercises'],
-                        localizedStrings!['workout_card_cardio_time'],
-                        Colors.orange,
-                        'assets/images/crunch.png',
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    GestureDetector(
-                      onTap: () {
-                        widget.onTileTap(1);
-                      },
-                      child: _buildWorkoutCard(
-                        localizedStrings!['workout_card_arms'],
-                        localizedStrings!['workout_card_arms_exercises'],
-                        localizedStrings!['workout_card_arms_time'],
-                        Colors.indigo,
-                        'assets/images/bench_press.png',
-                      ),
-                    ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 20),
+            // Other UI components
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    widget.onTileTap(2);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.44, // 45% width
+                    height: 200,
+                    child: _RadialProgress(
+                      width: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container width
+                      height: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container height
+                      progress: 0.7,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    widget.onTileTap(2);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.44, // 45% width
+                    height: 200,
+                    child: StepCounter(
+                      width: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container width
+                      height: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container height
+                      steps: _steps,
+                      pedestrianStatus: _pedestrianStatus,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+
+            SizedBox(height: 20),
+
+            GestureDetector(
+              onTap: () {
+                widget.onTileTap(3);
+              },
+              child: _buildProgressCard(
+                localizedStrings!['progress_title'],
+                localizedStrings!['progress_message'],
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            _buildHorizontalScrollView(context),
+          ],
         ),
       ),
     );
   }
 
-// Pedometer widget
-  Widget _buildPedometerWidget() {
-    return Container(
-      decoration: _buildBoxDecoration(),
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+
+
+Widget _buildHorizontalScrollView(BuildContext context) {
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
             children: [
-              Text(
-                "Steps Taken",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              _buildWorkoutCard(
+                localizedStrings!['workout_card_cardio'],
+                localizedStrings!['workout_card_cardio_exercises'],
+                localizedStrings!['workout_card_cardio_time'],
+                Colors.orange,
+                'assets/images/crunch.png',
               ),
-              Text(
-                _steps.toString(),
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent,
-                ),
+              SizedBox(width: 16),
+              _buildWorkoutCard(
+                localizedStrings!['workout_card_arms'],
+                localizedStrings!['workout_card_arms_exercises'],
+                localizedStrings!['workout_card_arms_time'],
+                Colors.indigo,
+                'assets/images/bench_press.png',
               ),
             ],
           ),
-          Icon(
-            Icons.directions_walk,
-            size: 50,
-            color: Colors.blueAccent,
+        ),
+        SizedBox(height: 16),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildFoodCard(
+                localizedStrings!['food_card_fruit_granola'],
+                Colors.orange,
+                'assets/images/fruit_granola.png',
+              ),
+              SizedBox(width: 16),
+              _buildFoodCard(
+                localizedStrings!['food_card_pesto_pasta'],
+                Colors.indigo,
+                'assets/images/pesto_pasta.png',
+              ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-
-
-
-  Widget _buildActivityCardLeft(String title, String count, String subtitle, IconData icon, Color color) {
-    return Container(
-      decoration: _buildBoxDecoration(),
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center the contents horizontally
-        children: [
-          Icon(icon, size: 32, color: color),
-          SizedBox(height: 8),
-          Text(
-            count,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center, // Center align the subtitle
-            style: TextStyle(
-              color: AppColors.gray,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -290,8 +286,9 @@ class _HomePageState extends State<HomePage> {
       decoration: _buildBoxDecoration(),
       padding: EdgeInsets.all(16),
       width: 220,
+      height: 92,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center the contents
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(icon, size: 25, color: color),
           SizedBox(width: 15),
@@ -316,12 +313,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildWorkoutCard(String title, String exercises, String time, Color color, String imagePath) {
     return Container(
-      width: 240, // Adjust the width to fit more content
+      width: 240,
       decoration: _buildBoxDecoration().copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
         children: [
-          // Text on the left
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,44 +327,39 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // White text color
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 8),
                 Text(
                   exercises,
-                  style: TextStyle(
-                    color: Colors.white, // White text color
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
                 Text(
                   time,
-                  style: TextStyle(
-                    color: Colors.white, // White text color
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 16), // Space between text and image
-
-          // Image on the right
-          Image.asset(imagePath, height: 120, fit: BoxFit.cover),
+          SizedBox(width: 16),
+          Image.asset(
+            imagePath,
+            height: 120,
+            fit: BoxFit.cover,
+          ),
         ],
       ),
     );
   }
 
-
   Widget _buildFoodCard(String title, Color color, String imagePath) {
     return Container(
-      width: 240, // Adjust the width to fit more content
+      width: 240,
       decoration: _buildBoxDecoration().copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
         children: [
-
-          // Text on the left
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,47 +376,116 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: 30), // Space between text and image
-
-          // Image on the right
-          Image.asset(imagePath, height: 80, fit: BoxFit.cover),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProgressCard(String title, String subtitle) {
-    return Container(
-      decoration: _buildBoxDecoration(),
-      padding: EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Icon(Icons.emoji_events, size: 32, color: Colors.orange),
-          SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: AppColors.gray,
-                ),
-              ),
-            ],
+          SizedBox(height: 30),
+          Image.asset(
+            imagePath,
+            height: 80,
+            fit: BoxFit.cover,
           ),
         ],
       ),
     );
   }
+
+  Widget _buildProgressCard(String title, String message) {
+    return Container(
+      decoration: _buildBoxDecoration(),
+      padding: EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Icon(Icons.trending_up, color: Colors.green, size: 32),
+          SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
+                  child: Text(
+                    message,
+                    style: TextStyle(
+                      color: AppColors.gray,
+                    ),
+                    softWrap: true,
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
 }
+
+class StepCounter extends StatelessWidget {
+  final double height, width;
+  final int steps;
+  final String pedestrianStatus;
+
+  const StepCounter({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.steps,
+    required this.pedestrianStatus,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: _buildBoxDecoration(),
+      padding: EdgeInsets.all(16),
+      width: width,
+      height: height,
+      child: Stack(
+        children: [
+          // Center the content
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.directions_walk,
+                  size: 50,
+                  color: Colors.blueAccent,
+                ),
+                SizedBox(height: 8),
+                Text(
+                  steps.toString(),
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  "Status: $pedestrianStatus",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+}
+
+
+
 
 class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
@@ -442,7 +502,7 @@ class _RadialProgress extends StatelessWidget {
     return Container(
       decoration: _buildBoxDecoration(),
       padding: EdgeInsets.all(16),
-      width: 200,
+      width: width,
       height: height,
       child: Stack(
         children: [
@@ -512,7 +572,6 @@ class _RadialPainter extends CustomPainter {
     return true;
   }
 }
-
 
 BoxDecoration _buildBoxDecoration() {
   return BoxDecoration(

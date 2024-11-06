@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
