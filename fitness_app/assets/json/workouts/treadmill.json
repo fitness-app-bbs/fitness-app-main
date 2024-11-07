@@ -1,7 +1,17 @@
 {
   "name": "Treadmill",
   "iconUrl": "assets/images/treadmill.png",
-  "description": "The Treadmill is a staple cardio machine for improving cardiovascular health and endurance. Whether you are walking, jogging, or sprinting, the treadmill allows you to control the intensity and incline for a personalized workout. Track your distance, time, speed, and calories burned to monitor improvements in your stamina and cardiovascular fitness over time.",
-  "instruction": "How to Perform:\n1. Start with a walking or jogging pace, adjusting the speed and incline to suit your fitness level.\n2. Focus on maintaining proper posture, engaging your core, and using your arms to help drive momentum.\n\nVariants:\n- Incline Walk: Increase the incline for a challenging uphill workout without increasing speed.\n- HIIT Intervals: Alternate between sprinting and walking to improve cardiovascular endurance.\n- Backward Walk: Walk backward at a slow pace to challenge different leg muscles.",
+  "description": "The Treadmill is a staple cardio machine for improving cardiovascular health and endurance. Whether you are walking, jogging, or sprinting, the treadmill allows you to control the intensity and incline for a personalized workout.",
+  "instruction": {
+    "howToPerform": [
+      "Start with a walking or jogging pace, adjusting the speed and incline to suit your fitness level.",
+      "Focus on maintaining proper posture, engaging your core, and using your arms to help drive momentum."
+    ],
+    "variants": [
+      "Incline Walk: Increase the incline for a challenging uphill workout without increasing speed.",
+      "HIIT Intervals: Alternate between sprinting and walking to improve cardiovascular endurance.",
+      "Backward Walk: Walk backward at a slow pace to challenge different leg muscles."
+    ]
+  },
   "imageUrl": "assets/images/treadmill.png"
 }

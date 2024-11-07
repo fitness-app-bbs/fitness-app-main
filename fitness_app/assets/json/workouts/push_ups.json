@@ -2,6 +2,18 @@
   "name": "Push Ups",
   "iconUrl": "assets/images/push_ups.png",
   "description": "Push-Ups are one of the most fundamental and effective bodyweight exercises, targeting the chest, shoulders, triceps, and core.",
-  "instruction": "How to Perform:\n1. Start in a plank position with hands slightly wider than shoulder-width apart.\n2. Lower your chest to the ground while keeping your core tight and elbows at a 45-degree angle.\n3. Push yourself back up to the starting position.\n\nVariants:\n- Knee Push-Ups: Perform on your knees for an easier version.\n- Decline Push-Ups: Place your feet on an elevated surface to increase difficulty.\n- Diamond Push-Ups: Place your hands close together to target the triceps more.",
+  "instruction": {
+    "howToPerform": [
+      "Start in a plank position with hands slightly wider than shoulder-width apart.",
+      "Lower your chest to the ground while keeping your core tight and elbows at a 45-degree angle.",
+      "Push yourself back up to the starting position."
+    ],
+    "variants": [
+      "Knee Push-Ups: Perform on your knees for an easier version.",
+      "Decline Push-Ups: Place your feet on an elevated surface to increase difficulty.",
+      "Diamond Push-Ups: Place your hands close together to target the triceps more."
+    ]
+  },
   "imageUrl": "assets/images/push_ups.png"
 }
+
