@@ -2,6 +2,17 @@
   "name": "Tricep Extensions",
   "iconUrl": "assets/images/laying_trizep_extensions.png",
   "description": "Tricep Extensions isolate and strengthen the muscles at the back of your arms, helping you build definition and upper body strength.",
-  "instruction": "How to Perform:\n1. Hold a dumbbell with both hands, extending your arms straight overhead.\n2. Bend your elbows and lower the dumbbell behind your head until your forearms are parallel to the floor.\n3. Extend your arms back up to the starting position, focusing on squeezing the triceps.\n\nVariants:\n- Skull Crushers: Use an EZ-bar or dumbbells while lying on a bench to target the triceps.\n- Cable Tricep Extensions: Use a cable machine with a rope attachment for continuous tension.\n- One-Arm Overhead Extension: Perform with one arm for better isolation.",
+  "instruction": {
+    "howToPerform": [
+      "Hold a dumbbell with both hands, extending your arms straight overhead.",
+      "Bend your elbows and lower the dumbbell behind your head until your forearms are parallel to the floor.",
+      "Extend your arms back up to the starting position, focusing on squeezing the triceps."
+    ],
+    "variants": [
+      "Skull Crushers: Use an EZ-bar or dumbbells while lying on a bench to target the triceps.",
+      "Cable Tricep Extensions: Use a cable machine with a rope attachment for continuous tension.",
+      "One-Arm Overhead Extension: Perform with one arm for better isolation."
+    ]
+  },
   "imageUrl": "assets/images/laying_trizep_extensions.png"
 }

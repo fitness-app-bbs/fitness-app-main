@@ -2,6 +2,17 @@
   "name": "Lunges",
   "iconUrl": "assets/images/lunges.png",
   "description": "Lunges are an excellent lower-body workout that engages your quads, hamstrings, and glutes. This functional movement also helps to improve balance, flexibility, and core strength.",
-  "instruction": "How to Perform:\n1. Stand tall with feet hip-width apart.\n2. Step forward with one leg, lowering your hips until both knees are bent at 90-degree angles.\n3. Push through the heel of the front foot to return to the starting position, then switch legs.\n\nVariants:\n- Walking Lunges: Step forward with alternating legs as you walk across the floor.\n- Reverse Lunges: Step backward instead of forward to focus on the glutes and hamstrings.\n- Weighted Lunges: Hold dumbbells or a barbell for added resistance.",
+  "instruction": {
+    "howToPerform": [
+      "Stand tall with feet hip-width apart.",
+      "Step forward with one leg, lowering your hips until both knees are bent at 90-degree angles.",
+      "Push through the heel of the front foot to return to the starting position, then switch legs."
+    ],
+    "variants": [
+      "Walking Lunges: Step forward with alternating legs as you walk across the floor.",
+      "Reverse Lunges: Step backward instead of forward to focus on the glutes and hamstrings.",
+      "Weighted Lunges: Hold dumbbells or a barbell for added resistance."
+    ]
+  },
   "imageUrl": "assets/images/lunges.png"
 }

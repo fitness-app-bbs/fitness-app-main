@@ -2,6 +2,18 @@
   "name": "Bench Press",
   "iconUrl": "assets/images/bench_press.png",
   "description": "The Bench Press is a classic weightlifting exercise targeting the chest, shoulders, and triceps. This strength-building workout is key for developing upper body power and increasing muscle mass.",
-  "instruction": "How to Perform:\n1. Lie flat on a bench with your feet planted firmly on the floor.\n2. Grip the barbell with hands slightly wider than shoulder-width apart.\n3. Lower the barbell to your chest, ensuring your elbows are at about a 45-degree angle to your body.\n4. Press the barbell back up by extending your arms fully without locking out your elbows.\n\nVariants:\n- Dumbbell Bench Press: Use dumbbells instead of a barbell to increase stability demands.\n- Incline Bench Press: Perform on an incline bench to target the upper chest.\n- Decline Bench Press: Use a decline bench to focus on the lower chest.",
+  "instruction": {
+    "howToPerform": [
+      "Lie flat on a bench with your feet planted firmly on the floor.",
+      "Grip the barbell with hands slightly wider than shoulder-width apart.",
+      "Lower the barbell to your chest, ensuring your elbows are at about a 45-degree angle to your body.",
+      "Press the barbell back up by extending your arms fully without locking out your elbows."
+    ],
+    "variants": [
+      "Dumbbell Bench Press: Use dumbbells instead of a barbell to increase stability demands.",
+      "Incline Bench Press: Perform on an incline bench to target the upper chest.",
+      "Decline Bench Press: Use a decline bench to focus on the lower chest."
+    ]
+  },
   "imageUrl": "assets/images/bench_press.png"
 }

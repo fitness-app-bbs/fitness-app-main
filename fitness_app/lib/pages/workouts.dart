@@ -1,30 +1,36 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:FitnessApp/utils/colors.dart';
 
 class Workout {
   final String name;
   final String iconUrl;
   final String description;
-  final String instruction;
+  final String howToPerform;
+  final String variants;
   final String imageUrl;
 
   Workout({
     required this.name,
     required this.iconUrl,
     required this.description,
-    required this.instruction,
+    required this.howToPerform,
+    required this.variants,
     required this.imageUrl,
   });
 
   factory Workout.fromJson(Map<String, dynamic> json) {
     return Workout(
-      name: json['name'],
-      iconUrl: json['iconUrl'],
-      description: json['description'],
-      instruction: json['instruction'],
-      imageUrl: json['imageUrl'],
+      name: json['name'] as String,
+      iconUrl: json['iconUrl'] as String,
+      description: json['description'] as String,
+      howToPerform: (json['instruction']['howToPerform'] as List<dynamic>?)
+          ?.join('\n') ?? '',
+      variants: (json['instruction']['variants'] as List<dynamic>?)
+          ?.join('\n') ?? '',
+      imageUrl: json['imageUrl'] as String,
     );
   }
 }
@@ -180,16 +186,95 @@ class WorkoutDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(workout.imageUrl, height: 400, fit: BoxFit.cover),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  workout.imageUrl,
+                  height: 400,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
               SizedBox(height: 20),
               Text(
                 workout.name,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              Text(workout.description, style: TextStyle(fontSize: 16)),
+
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(FontAwesomeIcons.infoCircle, color: Colors.red), // Updated icon
+                  SizedBox(width: 8),
+                  Text(
+                    "Description",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
               SizedBox(height: 10),
-              Text(workout.instruction, style: TextStyle(fontSize: 16)),
+              Card(
+                color: Colors.red[50], // Light red color
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    workout.description,
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                ),
+              ),
+
+              // How to Perform Section
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(FontAwesomeIcons.playCircle, color: Colors.green),
+                  SizedBox(width: 8),
+                  Text(
+                    "How to Perform",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Card(
+                color: Colors.green[50],
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    workout.howToPerform,
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                ),
+              ),
+
+              // Variants Section
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(FontAwesomeIcons.list, color: Colors.orange),
+                  SizedBox(width: 8),
+                  Text(
+                    "Variants",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Card(
+                color: Colors.orange[50],
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    workout.variants,
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -197,4 +282,3 @@ class WorkoutDetailPage extends StatelessWidget {
     );
   }
 }
-

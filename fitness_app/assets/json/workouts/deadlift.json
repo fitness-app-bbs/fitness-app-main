@@ -2,6 +2,18 @@
   "name": "Deadlift",
   "iconUrl": "assets/images/deadlift.png",
   "description": "The Deadlift is a full-body strength exercise that primarily targets the posterior chain, including your hamstrings, glutes, and lower back.",
-  "instruction": "How to Perform:\n1. Stand with your feet hip-width apart, toes under the barbell.\n2. Grip the barbell just outside your knees with palms facing down.\n3. With a flat back and engaged core, lift the bar by driving through your heels, standing up straight and locking your hips at the top.\n4. Lower the bar back down by hinging at your hips, keeping the bar close to your body.\n\nVariants:\n- Sumo Deadlift: Use a wider stance and grip the bar between your legs to target the inner thighs and glutes.\n- Romanian Deadlift: Focus on the hamstrings by lowering the bar with a slight bend in the knees, keeping the bar close to your shins.\n- Single-Leg Deadlift: Perform with one leg to challenge balance and stability.",
+  "instruction": {
+    "howToPerform": [
+      "Stand with your feet hip-width apart, toes under the barbell.",
+      "Grip the barbell just outside your knees with palms facing down.",
+      "With a flat back and engaged core, lift the bar by driving through your heels, standing up straight and locking your hips at the top.",
+      "Lower the bar back down by hinging at your hips, keeping the bar close to your body."
+    ],
+    "variants": [
+      "Sumo Deadlift: Use a wider stance and grip the bar between your legs to target the inner thighs and glutes.",
+      "Romanian Deadlift: Focus on the hamstrings by lowering the bar with a slight bend in the knees, keeping the bar close to your shins.",
+      "Single-Leg Deadlift: Perform with one leg to challenge balance and stability."
+    ]
+  },
   "imageUrl": "assets/images/deadlift.png"
 }
