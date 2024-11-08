@@ -42,22 +42,15 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Text(
-          'Leaderboard',
-          style: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.black),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              SizedBox(height: 40),
+
               _buildInviteFriendsCard(context),
 
               SizedBox(height: 24),
@@ -70,7 +63,6 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   color: AppColors.black,
                 ),
               ),
-              SizedBox(height: 16),
 
               ListView.builder(
                 shrinkWrap: true,
@@ -135,7 +127,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   Widget _buildLeaderboardCard(Map<String, dynamic> user) {
     return Container(
       decoration: _buildBoxDecorationWithBorder(user['rank']),
-      margin: EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,8 +191,8 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       boxShadow: [
         BoxShadow(
           color: AppColors.black.withOpacity(0.1),
-          spreadRadius: 1,
-          blurRadius: 1,
+          spreadRadius: 4,
+          blurRadius: 6,
           offset: Offset(0, 4),
         ),
       ],
@@ -229,9 +221,9 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
-          color: AppColors.black.withOpacity(0.1),
-          spreadRadius: 1,
-          blurRadius: 1,
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 4,
+          blurRadius: 6,
           offset: Offset(0, 4),
         ),
       ],

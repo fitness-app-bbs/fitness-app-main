@@ -43,21 +43,12 @@ class NutritionDashboard extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Text(
-          'Nutrition Dashboard',
-          style: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.black),
-      ),
       body: Stack(
         children: <Widget>[
           // Main content area
           Column(
             children: <Widget>[
+              SizedBox(height: 30),
               Container(
                 height: height * 0.25,
                 decoration: BoxDecoration(
