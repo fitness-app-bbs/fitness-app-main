@@ -112,12 +112,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Text(localizedStrings!['homepage_title']),
-        elevation: 0,
-        backgroundColor: AppColors.white,
-        centerTitle: true,
-      ),
       body: IndexedStack(
         index: _currentIndex,
         children: [
@@ -135,6 +129,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 40),
             GestureDetector(
               onTap: _goToSettingsPage,
               child: Container(
