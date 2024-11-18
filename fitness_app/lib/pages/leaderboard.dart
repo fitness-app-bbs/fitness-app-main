@@ -39,9 +39,9 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     if (localizedStrings == null) {
       return Center(child: CircularProgressIndicator());
     }
-
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -60,7 +60,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.black,
+                  color: AppColors.textColor(brightness),
                 ),
               ),
 
@@ -80,8 +80,9 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   }
 
   Widget _buildInviteFriendsCard(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Container(
-      decoration: _buildBoxDecoration(),
+      decoration: _buildBoxDecoration(brightness),
       padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,25 +95,25 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.black,
+                  color: AppColors.textColor(brightness),
                 ),
               ),
               SizedBox(height: 8),
               Text(
                 localizedStrings!['invite_friends_description'],
-                style: TextStyle(color: AppColors.gray),
+                style: TextStyle(color: AppColors.textColor(brightness)),
               ),
             ],
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.dark,
+              backgroundColor: AppColors.primaryColor(brightness),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
             onPressed: () {
-              //Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
+              Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
             },
             child: Text(
               localizedStrings!['invite_button'],
@@ -125,6 +126,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   }
 
   Widget _buildLeaderboardCard(Map<String, dynamic> user) {
+    final brightness = Theme.of(context).brightness;
     return Container(
       decoration: _buildBoxDecorationWithBorder(user['rank']),
       margin: EdgeInsets.only(bottom: 20),
@@ -135,7 +137,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: AppColors.dark,
+                backgroundColor: AppColors.primaryColor(brightness),
                 child: Text(
                   user['rank'].toString(),
                   style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
@@ -150,14 +152,14 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.black,
+                      color: AppColors.textColor(brightness),
                     ),
                   ),
                   SizedBox(height: 4),
                   Text(
                     '${user['score']} pts',
                     style: TextStyle(
-                      color: AppColors.gray,
+                      color: AppColors.textColor(brightness),
                       fontSize: 16,
                     ),
                   ),
@@ -184,8 +186,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       borderColor = Colors.transparent;
     }
 
+
+    final brightness = Theme.of(context).brightness;
     return BoxDecoration(
-      color: AppColors.white,
+      color: AppColors.cardColor(brightness),
       borderRadius: BorderRadius.circular(16),
       border: Border.all(color: borderColor, width: 3),
       boxShadow: [
@@ -200,6 +204,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   }
 
   Widget _buildTrophyIcon(int rank) {
+    final brightness = Theme.of(context).brightness;
     Color trophyColor;
 
     if (rank == 1) {
@@ -209,15 +214,15 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     } else if (rank == 3) {
       trophyColor = AppColors.bronze;
     } else {
-      trophyColor = AppColors.dark;
+      trophyColor = AppColors.primaryColor(brightness);
     }
 
     return Icon(Icons.emoji_events, color: trophyColor);
   }
 
-  BoxDecoration _buildBoxDecoration() {
+  BoxDecoration _buildBoxDecoration(Brightness brightness) {
     return BoxDecoration(
-      color: AppColors.white,
+      color: AppColors.cardColor(brightness),
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(

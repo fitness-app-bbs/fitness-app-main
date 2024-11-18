@@ -13,11 +13,12 @@ double radians(double degrees) {
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.dark,
+          color: AppColors.primaryColor(brightness),
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
@@ -40,9 +41,10 @@ class NutritionDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final brightness = Theme.of(context).brightness;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       body: Stack(
         children: <Widget>[
           // Main content area
@@ -52,12 +54,12 @@ class NutritionDashboard extends StatelessWidget {
               Container(
                 height: height * 0.25,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.backgroundColor(brightness),
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(40),
                   ),
                 ),
-                padding: const EdgeInsets.only(top: 40, left: 32, right: 16, bottom: 10),
+                padding: const EdgeInsets.only(top: 30, left: 32, right: 16, bottom: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -104,8 +106,7 @@ class NutritionDashboard extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 24),
-              // Moved the button here
+              SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ElevatedButton(
@@ -116,7 +117,7 @@ class NutritionDashboard extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.dark,
+                    backgroundColor: AppColors.primaryColor(brightness),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -176,8 +177,9 @@ class NutritionDashboard extends StatelessWidget {
   }
 
   Widget _mealCard(BuildContext context, String name, int kcal, String time, String imagePath) {
+    final brightness = Theme.of(context).brightness;
   return Container(
-    decoration: _buildBoxDecorationWithShadow(),
+    decoration: _buildBoxDecorationWithShadow(brightness),
     margin: EdgeInsets.symmetric(vertical: 8),
     child: InkWell(
       onTap: () {
@@ -201,9 +203,9 @@ class NutritionDashboard extends StatelessWidget {
     ),
   );
 }
-  BoxDecoration _buildBoxDecorationWithShadow() {
+  BoxDecoration _buildBoxDecorationWithShadow(Brightness brightness) {
     return BoxDecoration(
-      color: AppColors.white,
+      color: AppColors.cardColor(brightness),
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
@@ -290,9 +292,11 @@ class _RadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return CustomPaint(
       painter: _RadialPainter(
         progress: progress,
+        brightness: brightness,
       ),
       child: Container(
         height: height,
@@ -307,7 +311,7 @@ class _RadialProgress extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.dark,
+                    color: AppColors.primaryColor(brightness),
                   ),
                 ),
                 TextSpan(text: "\n"),
@@ -316,7 +320,7 @@ class _RadialProgress extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.dark,
+                    color: AppColors.primaryColor(brightness),
                   ),
                 ),
               ],
@@ -330,14 +334,15 @@ class _RadialProgress extends StatelessWidget {
 
 class _RadialPainter extends CustomPainter {
   final double progress;
+  final Brightness brightness;
 
-  _RadialPainter({required this.progress});
+  _RadialPainter({required this.progress, required this.brightness});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..strokeWidth = 10
-      ..color = AppColors.dark
+      ..color = AppColors.primaryColor(brightness)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 

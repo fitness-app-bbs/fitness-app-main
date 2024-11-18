@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:FitnessApp/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import '../main.dart';
 
 class SettingsPage extends StatelessWidget {
   final VoidCallback onBack;
@@ -9,15 +11,17 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       appBar: AppBar(
         title: Text(
           'Settings',
-          style: TextStyle(color: AppColors.black),
+          style: TextStyle(color: AppColors.textColor(brightness)),
         ),
-        backgroundColor: AppColors.white,
-        iconTheme: IconThemeData(color: AppColors.black),
+        backgroundColor: AppColors.backgroundColor(brightness),
+        iconTheme: IconThemeData(color: AppColors.textColor(brightness)),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -52,9 +56,11 @@ class SettingsPage extends StatelessWidget {
             SwitchListTile(
               title: Text('Dark Mode'),
               subtitle: Text('Toggle between light and dark mode'),
-              value: false,
+              value: appState.themeMode == ThemeMode.dark,
               activeColor: AppColors.medium,
-              onChanged: (bool value) {},
+              onChanged: (bool value) {
+                appState.toggleThemeMode();
+              },
             ),
             Divider(),
 

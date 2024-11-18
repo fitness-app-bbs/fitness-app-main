@@ -50,6 +50,9 @@ class _MainWorkoutScreenState extends State<MainWorkoutScreen> {
   void initState() {
     super.initState();
     _loadWorkouts();
+    for (var workout in workouts) {
+      precacheImage(AssetImage(workout.iconUrl), context);
+    }
   }
 
   Future<void> _loadWorkouts() async {
@@ -116,8 +119,9 @@ class WorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
 
       body: GridView.builder(
         padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0, bottom: 16.0),
@@ -167,10 +171,11 @@ class WorkoutDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       appBar: AppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.backgroundColor(brightness),
         title: Text(workout.name),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

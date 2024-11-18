@@ -106,23 +106,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     if (localizedStrings == null) {
       return Center(child: CircularProgressIndicator());
     }
-
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          _buildHomeContent(),
+          _buildHomeContent(brightness),
           SettingsPage(onBack: _goBackToHomePage),
         ],
       ),
     );
   }
 
-  Widget _buildHomeContent() {
+  Widget _buildHomeContent(Brightness brightness) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             GestureDetector(
               onTap: _goToSettingsPage,
               child: Container(
-                decoration: _buildBoxDecoration(),
+                decoration: _buildBoxDecoration(brightness),
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
@@ -276,8 +276,9 @@ Widget _buildHorizontalScrollView(BuildContext context) {
 
 
   Widget _buildActivityCardRight(String title, String count, String subtitle, IconData icon, Color color) {
+    final brightness = Theme.of(context).brightness;
     return Container(
-      decoration: _buildBoxDecoration(),
+      decoration: _buildBoxDecoration(brightness),
       padding: EdgeInsets.all(16),
       width: 220,
       height: 92,
@@ -306,9 +307,10 @@ Widget _buildHorizontalScrollView(BuildContext context) {
   }
 
   Widget _buildWorkoutCard(String title, String exercises, String time, Color color, String imagePath) {
+    final brightness = Theme.of(context).brightness;
     return Container(
       width: 240,
-      decoration: _buildBoxDecoration().copyWith(color: color),
+      decoration: _buildBoxDecoration(brightness).copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
         children: [
@@ -348,9 +350,10 @@ Widget _buildHorizontalScrollView(BuildContext context) {
   }
 
   Widget _buildFoodCard(String title, Color color, String imagePath) {
+    final brightness = Theme.of(context).brightness;
     return Container(
       width: 240,
-      decoration: _buildBoxDecoration().copyWith(color: color),
+      decoration: _buildBoxDecoration(brightness).copyWith(color: color),
       padding: EdgeInsets.all(16),
       child: Row(
         children: [
@@ -382,8 +385,9 @@ Widget _buildHorizontalScrollView(BuildContext context) {
   }
 
   Widget _buildProgressCard(String title, String message) {
+    final brightness = Theme.of(context).brightness;
     return Container(
-      decoration: _buildBoxDecoration(),
+      decoration: _buildBoxDecoration(brightness),
       padding: EdgeInsets.all(16),
       child: Row(
         children: [
@@ -433,8 +437,9 @@ class StepCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Container(
-      decoration: _buildBoxDecoration(),
+      decoration: _buildBoxDecoration(brightness),
       padding: EdgeInsets.all(16),
       width: width,
       height: height,
@@ -493,15 +498,16 @@ class _RadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Container(
-      decoration: _buildBoxDecoration(),
+      decoration: _buildBoxDecoration(brightness),
       padding: EdgeInsets.all(16),
       width: width,
       height: height,
       child: Stack(
         children: [
           CustomPaint(
-            painter: _RadialPainter(progress: progress),
+            painter: _RadialPainter(progress: progress, brightness: brightness),
             size: Size(width, height),
           ),
           Center(
@@ -514,7 +520,7 @@ class _RadialProgress extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xFF200087),
+                      color: AppColors.primaryColor(brightness),
                     ),
                   ),
                   TextSpan(text: "\n"),
@@ -523,7 +529,7 @@ class _RadialProgress extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      color: const Color(0xFF200087),
+                      color: AppColors.primaryColor(brightness),
                     ),
                   ),
                 ],
@@ -538,14 +544,15 @@ class _RadialProgress extends StatelessWidget {
 
 class _RadialPainter extends CustomPainter {
   final double progress;
+  final Brightness brightness;
 
-  _RadialPainter({required this.progress});
+  _RadialPainter({required this.progress, required this.brightness});
 
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(Canvas canvas, Size size) async {
     Paint paint = Paint()
       ..strokeWidth = 10
-      ..color = AppColors.dark
+      ..color = AppColors.primaryColor(brightness)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
@@ -567,9 +574,9 @@ class _RadialPainter extends CustomPainter {
   }
 }
 
-BoxDecoration _buildBoxDecoration() {
+BoxDecoration _buildBoxDecoration(Brightness brightness) {
   return BoxDecoration(
-    color: AppColors.white,
+    color: AppColors.cardColor(brightness),
     borderRadius: BorderRadius.circular(16),
     boxShadow: [
       BoxShadow(
