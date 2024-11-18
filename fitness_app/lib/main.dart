@@ -30,32 +30,44 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Fitness App',
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
-        initialRoute: '/auth',
-        routes: {
-          '/auth': (context) => AuthPage(),
-          '/login': (context) => LoginPage(),
-          '/signup': (context) => SignUpPage(),
-          '/home': (context) => MyHomePage(),
+      child: Consumer<MyAppState>(
+        builder: (context, appState, _) {
+          return MaterialApp(
+            title: 'Fitness App',
+            theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
+            themeMode: appState.themeMode,
+            initialRoute: '/auth',
+              routes: {
+              '/auth': (context) => AuthPage(),
+              '/login': (context) => LoginPage(),
+              '/signup': (context) => SignUpPage(),
+              '/home': (context) => MyHomePage(),
+            },
+          );
         },
       ),
     );
   }
 }
 
+
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  var favorites = <WordPair>[];
+
+  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode get themeMode => _themeMode;
+
+  void toggleThemeMode() {
+    _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
 
   void getNext() {
     current = WordPair.random();
     notifyListeners();
   }
-
-  var favorites = <WordPair>[];
 
   void toggleFavorite() {
     if (favorites.contains(current)) {
@@ -95,14 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.cardColor(brightness),
       body: IndexedStack(
         index: selectedIndex,
         children: _pages,
       ),
       bottomNavigationBar: NavigationBarTheme(
-        data: CustomNavBarTheme.theme,
+        data: CustomNavBarTheme.theme(brightness),
         child: NavigationBar(
           selectedIndex: selectedIndex,
           onDestinationSelected: (int index) {
@@ -139,22 +152,22 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CustomNavBarTheme {
-  static NavigationBarThemeData get theme {
+  static NavigationBarThemeData theme (Brightness brightness) {
     return NavigationBarThemeData(
-      backgroundColor: AppColors.whitepink,
-      indicatorColor: AppColors.lightpink,
+      backgroundColor: AppColors.cardColor(brightness),
+      indicatorColor: AppColors.backgroundColor(brightness),
       labelTextStyle: MaterialStateProperty.all(TextStyle(
-        color: AppColors.black,
+        color: AppColors.textColor(brightness),
         fontWeight: FontWeight.bold,
       )),
       iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {
           return IconThemeData(
-            color: AppColors.black,
+            color: AppColors.textColor(brightness),
           );
         }
         return IconThemeData(
-          color: AppColors.black,
+          color: AppColors.textColor(brightness),
         );
       }),
     );

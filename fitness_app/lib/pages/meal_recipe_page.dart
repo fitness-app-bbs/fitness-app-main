@@ -1,3 +1,4 @@
+import 'package:FitnessApp/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class MealRecipePage extends StatelessWidget {
@@ -16,19 +17,20 @@ class MealRecipePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.backgroundColor(brightness),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: AppColors.textColor(brightness)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text(
           name,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: AppColors.textColor(brightness), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),

@@ -1,16 +1,51 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color _lightBackgroundColor = Color(0xFFFFFFFF);
+  static const Color _darkBackgroundColor = Color(0xFF363636);
+
+  static Color backgroundColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightBackgroundColor : _darkBackgroundColor;
+  }
+
+  static const Color _lightCardColor = Color(0xFFFFFFFF);
+  static const Color _darkCardColor = Color(0xFF3D3D3D);
+
+  static Color cardColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightCardColor : _darkCardColor;
+  }
+
+  static const Color _lightTextColor = Color(0xFFFFFFFF);
+  static const Color _darkTextColor = Color(0xFF000000);
+
+  static Color textColor(Brightness brightness) {
+    return brightness == Brightness.light ? _darkTextColor : _lightTextColor;
+  }
+
+  static const Color _lightPrimaryColor = Color(0xff924dbf);
+  static const Color _darkPrimaryColor = Color(0xff4a2574);
+
+  static Color primaryColor(Brightness brightness) {
+    return brightness == Brightness.light ? _darkPrimaryColor : _lightPrimaryColor;
+  }
+
+  static const Color _lightSecondaryColor = Color(0xff9e72c3);
+  static const Color _darkSecondaryColor = Color(0xff0f0529);
+
+  static Color secondaryColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightSecondaryColor : _darkSecondaryColor;
+  }
+
+  static const Color medium = Color(0xff7338a0);
+
   static const Color lightlight = Color(0xff9e72c3);
   static const Color light = Color(0xff924dbf);
-  static const Color medium = Color(0xff7338a0);
   static const Color dark = Color(0xff4a2574);
   static const Color darkdark = Color(0xff0f0529);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color lightpink = Color(0xFFE8DEF8);
   static const Color whitepink = Color(0xFFF3EDF7);
-
   static const Color gray = Color(0xFF808080);
   static const Color lightgray = Color(0xFFDCDBDC);
   static const Color lightGray = Color(0xFFD3D3D3);
