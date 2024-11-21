@@ -14,6 +14,7 @@ import 'pages/meal_recipe_page.dart';
 import 'pages/settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,29 +54,29 @@ class MyApp extends StatelessWidget {
 
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-  var favorites = <WordPair>[];
-
   ThemeMode _themeMode = ThemeMode.light;
   ThemeMode get themeMode => _themeMode;
 
-  void toggleThemeMode() {
+  MyAppState() {
+    _loadThemeMode();
+  }
+
+  void toggleThemeMode() async {
     _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
+    await _saveThemeMode();
   }
 
-  void getNext() {
-    current = WordPair.random();
+  void _loadThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
+  Future<void> _saveThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isDarkMode', _themeMode == ThemeMode.dark);
   }
 }
 
