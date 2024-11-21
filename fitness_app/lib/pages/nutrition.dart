@@ -106,29 +106,6 @@ class NutritionDashboard extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 5),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CalorieCalculatorPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor(brightness),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Text(
-                    'Calculate Your Calorie Requirement',
-                    style: TextStyle(color: AppColors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 24),
               // Scrollable Meals for Today Section
               Expanded(
                 child: SingleChildScrollView(
