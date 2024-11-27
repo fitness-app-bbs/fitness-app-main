@@ -2,8 +2,9 @@
   "recipes": [
     {
       "name": "Fruit Granola",
-      "kcal": 350,
-      "time": "10 min",
+      "imagePath": "assets/images/fruit_granola.png",
+      "kcal": 200,
+      "time": "10 mins",
       "ingredients": [
         "1 cup of oats",
         "1/2 cup of yogurt",
@@ -20,8 +21,9 @@
     },
     {
       "name": "Pesto Pasta",
-      "kcal": 500,
-      "time": "20 min",
+      "imagePath": "assets/images/pesto_pasta.png",
+      "kcal": 400,
+      "time": "20 mins",
       "ingredients": [
         "200g pasta",
         "1/4 cup basil pesto",
@@ -40,8 +42,9 @@
     },
     {
       "name": "Greek Yogurt Parfait",
-      "kcal": 250,
-      "time": "5 min",
+      "imagePath": "assets/images/greek_yogurt_parfait.png",
+      "kcal": 180,
+      "time": "5 mins",
       "ingredients": [
         "1 cup Greek yogurt",
         "1/2 cup granola",
@@ -58,8 +61,9 @@
     },
     {
       "name": "Quinoa Salad",
-      "kcal": 300,
-      "time": "15 min",
+      "imagePath": "assets/images/quinoa_salad.png",
+      "kcal": 250,
+      "time": "15 mins",
       "ingredients": [
         "1 cup cooked quinoa",
         "1/2 cup diced cucumber",
@@ -78,8 +82,9 @@
     },
     {
       "name": "Protein Smoothie",
-      "kcal": 200,
-      "time": "5 min",
+      "imagePath": "assets/images/protein_smoothie.png",
+      "kcal": 300,
+      "time": "5 mins",
       "ingredients": [
         "1 scoop protein powder",
         "1 cup almond milk",
@@ -95,8 +100,9 @@
     },
     {
       "name": "Keto Salad",
-      "kcal": 350,
-      "time": "10 min",
+      "imagePath": "assets/images/keto_salad.png",
+      "kcal": 220,
+      "time": "10 mins",
       "ingredients": [
         "2 cups mixed greens",
         "1/2 avocado, sliced",
@@ -114,8 +120,9 @@
     },
     {
       "name": "Avocado Toast",
-      "kcal": 250,
-      "time": "5 min",
+      "imagePath": "assets/images/avocado_toast.png",
+      "kcal": 190,
+      "time": "5 mins",
       "ingredients": [
         "2 slices whole grain bread",
         "1/2 avocado, mashed",
@@ -132,8 +139,9 @@
     },
     {
       "name": "Chicken Caesar Salad",
-      "kcal": 400,
-      "time": "15 min",
+      "imagePath": "assets/images/chicken_caesar_salad.png",
+      "kcal": 350,
+      "time": "15 mins",
       "ingredients": [
         "2 cups romaine lettuce",
         "1 grilled chicken breast, sliced",
@@ -149,8 +157,9 @@
     },
     {
       "name": "Grilled Salmon",
-      "kcal": 450,
-      "time": "20 min",
+      "imagePath": "assets/images/grilled_salmon.png",
+      "kcal": 400,
+      "time": "25 mins",
       "ingredients": [
         "2 salmon fillets",
         "1 tbsp olive oil",
@@ -167,8 +176,9 @@
     },
     {
       "name": "Vegan Buddha Bowl",
-      "kcal": 350,
-      "time": "15 min",
+      "imagePath": "assets/images/vegan_buddha_bowl.png",
+      "kcal": 280,
+      "time": "15 mins",
       "ingredients": [
         "1 cup cooked brown rice",
         "1/2 cup chickpeas",
@@ -185,8 +195,9 @@
     },
     {
       "name": "Turkey Wrap",
+      "imagePath": "assets/images/turkey_wrap.png",
       "kcal": 300,
-      "time": "10 min",
+      "time": "10 mins",
       "ingredients": [
         "1 whole wheat tortilla",
         "2 slices turkey breast",
@@ -203,8 +214,9 @@
     },
     {
       "name": "Chicken Stir Fry",
-      "kcal": 500,
-      "time": "15 min",
+      "imagePath": "assets/images/chicken_stir_fry.png",
+      "kcal": 320,
+      "time": "20 mins",
       "ingredients": [
         "1 chicken breast, diced",
         "1/2 cup bell peppers, sliced",
