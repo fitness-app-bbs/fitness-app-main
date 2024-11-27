@@ -3,34 +3,93 @@ import 'dart:math' as math;
 import 'package:FitnessApp/utils/colors.dart';
 import 'meal_recipe_page.dart';
 import 'calorie_calculator_page.dart';
+import 'food_search_page.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'dart:async';
+
 
 
 double radians(double degrees) {
   return degrees * (math.pi / 180);
 }
 
+Future<List<Map<String, dynamic>>> loadFoodData() async {
+  final String response = await rootBundle.loadString('assets/json/food_data.json');
+  final List<dynamic> data = json.decode(response);
+  return data.map((e) => Map<String, dynamic>.from(e)).toList();
+}
+
 // Define the SearchBar widget
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  late Future<List<Map<String, dynamic>>> _foodData;
+
+  @override
+  void initState() {
+    super.initState();
+    _foodData = loadFoodData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    TextEditingController searchController = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.primaryColor(brightness),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search for food',
-            hintStyle: TextStyle(color: AppColors.white),
-            prefixIcon: Icon(Icons.search, color: AppColors.white),
-            suffixIcon: Icon(Icons.qr_code_scanner, color: AppColors.white),
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(vertical: 15),
-          ),
-        ),
+      child: FutureBuilder<List<Map<String, dynamic>>>(
+        future: _foodData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error loading food data');
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Text('No food data available');
+          }
+
+          final foodData = snapshot.data!;
+
+          return Container(
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor(Theme.of(context).brightness),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                hintText: 'Search for food',
+                hintStyle: TextStyle(color: AppColors.white),
+                prefixIcon: Icon(Icons.search, color: AppColors.white),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 15),
+              ),
+              onSubmitted: (query) {
+                final result = foodData.firstWhere(
+                      (item) => item['name'].toLowerCase() == query.toLowerCase(),
+                  orElse: () => {},
+                );
+
+                if (result.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FoodDetailPage(foodData: result),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Food not found')),
+                  );
+                }
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -259,12 +318,14 @@ class _IngredientProgress extends StatelessWidget {
 
 class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
+  final int kalories;
 
   const _RadialProgress({
     Key? key,
     required this.height,
     required this.width,
     required this.progress,
+    required this.kalories,
   }) : super(key: key);
 
   @override
@@ -284,7 +345,7 @@ class _RadialProgress extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "1731",
+                  text: "$kalories",
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
