@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'package:FitnessApp/utils/colors.dart';
 import 'meal_recipe_page.dart';
 import 'calorie_calculator_page.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 
 double radians(double degrees) {
@@ -122,18 +124,31 @@ class NutritionDashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 8),
-                        _mealCard(context, 'Fruit Granola', 271, '10 min', 'assets/images/fruit_granola.png'),
-                        _mealCard(context, 'Pesto Pasta', 512, '15 min', 'assets/images/pesto_pasta.png'),
-                        _mealCard(context, 'Greek Yogurt Parfait', 200, '5 min', 'assets/images/greek_yogurt_parfait.png'),
-                        _mealCard(context, 'Quinoa Salad', 290, '10 min', 'assets/images/quinoa_salad.png'),
-                        _mealCard(context, 'Protein Smoothie', 180, '7 min', 'assets/images/protein_smoothie.png'),
-                        _mealCard(context, 'Keto Salad', 415, '12 min', 'assets/images/keto_salad.png'),
-                        _mealCard(context, 'Avocado Toast', 250, '5 min', 'assets/images/avocado_toast.png'),
-                        _mealCard(context, 'Chicken Caesar Salad', 470, '12 min', 'assets/images/chicken_caesar_salad.png'),
-                        _mealCard(context, 'Grilled Salmon', 320, '20 min', 'assets/images/grilled_salmon.png'),
-                        _mealCard(context, 'Vegan Buddha Bowl', 350, '15 min', 'assets/images/vegan_buddha_bowl.png'),
-                        _mealCard(context, 'Turkey Wrap', 310, '8 min', 'assets/images/turkey_wrap.png'),
-                        _mealCard(context, 'Chicken Stir Fry', 450, '18 min', 'assets/images/chicken_stir_fry.png'),
+                        FutureBuilder<List<Map<String, dynamic>>>(
+                          future: _loadMealsFromJson(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(child: Text('Error loading meals'));
+                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(child: Text('No meals available'));
+                            } else {
+                              final meals = snapshot.data!;
+                              return Column(
+                                children: meals.map((meal) {
+                                  return _mealCard(
+                                    context,
+                                    meal['name'],
+                                    meal['kcal'],
+                                    meal['time'],
+                                    meal['imagePath'],
+                                  );
+                                }).toList(),
+                              );
+                            }
+                          },
+                        ),
                         SizedBox(height: 24),
                       ],
                     ),
@@ -146,7 +161,7 @@ class NutritionDashboard extends StatelessWidget {
             bottom: 16,
             left: 0,
             right: 0,
-            child: SearchBar(),
+            child: SearchBar(), // Ensure this SearchBar widget is implemented
           ),
         ],
       ),
@@ -155,44 +170,52 @@ class NutritionDashboard extends StatelessWidget {
 
   Widget _mealCard(BuildContext context, String name, int kcal, String time, String imagePath) {
     final brightness = Theme.of(context).brightness;
-  return Container(
-    decoration: _buildBoxDecorationWithShadow(brightness),
-    margin: EdgeInsets.symmetric(vertical: 8),
-    child: InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MealRecipePage(
-              name: name,
-              imagePath: imagePath,
-              kcal: kcal,
-              time: time,
+    return Container(
+      decoration: _buildBoxDecorationWithShadow(brightness),
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MealRecipePage(
+                recipeName: name,
+                imagePath: imagePath,
+                kcal: kcal,
+                time: time,
+              ),
             ),
-          ),
-        );
-      },
-      child: ListTile(
-        leading: Image.asset(imagePath, width: 50, height: 50),
-        title: Text(name),
-        subtitle: Text('$kcal kcal • $time'),
+          );
+        },
+        child: ListTile(
+          leading: Image.asset(imagePath, width: 50, height: 50),
+          title: Text(name),
+          subtitle: Text('$kcal kcal • $time'),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
+
   BoxDecoration _buildBoxDecorationWithShadow(Brightness brightness) {
     return BoxDecoration(
-      color: AppColors.cardColor(brightness),
-      borderRadius: BorderRadius.circular(16),
+      color: brightness == Brightness.dark ? Colors.grey[900] : Colors.white,
+      borderRadius: BorderRadius.circular(8),
       boxShadow: [
-        BoxShadow(
-          color: AppColors.black.withOpacity(0.1),
-          spreadRadius: 4,
-          blurRadius: 4,
-          offset: Offset(0, 4),
-        ),
+        if (brightness == Brightness.light)
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
       ],
     );
+  }
+
+  Future<List<Map<String, dynamic>>> _loadMealsFromJson() async {
+    final jsonString = await rootBundle.loadString('assets/json/recipes.json');
+    final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+    return List<Map<String, dynamic>>.from(jsonData['recipes']);
   }
 }
 class _IngredientProgress extends StatelessWidget {
