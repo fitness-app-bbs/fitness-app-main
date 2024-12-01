@@ -48,10 +48,12 @@ class NutritionDashboard extends StatelessWidget {
     int athlete_weight = 63;
 
     // daily
+    int calorie_req = 2200;
     int protein_req = (1.6 * athlete_weight).round();
     int carbs_req = 245;
     int fat_req = 84;
 
+    int curr_calories = 1500;
     int curr_protein = 54;
     int curr_carbs = 224;
     int curr_fat = 60;
@@ -87,6 +89,8 @@ class NutritionDashboard extends StatelessWidget {
                           width: width * 0.4,
                           height: width * 0.4,
                           progress: 0.7,
+                          curr_calories: curr_calories,
+                          calorie_req: calorie_req,
                         ),
                         SizedBox(width: 10),
                         Column(
@@ -297,25 +301,26 @@ class _IngredientProgress extends StatelessWidget {
 
 class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
+  final int curr_calories, calorie_req;
 
   const _RadialProgress({
     Key? key,
     required this.height,
     required this.width,
     required this.progress,
+    required this.curr_calories,
+    required this.calorie_req,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-
-    int curr_calories = 1500;
-    int calorie_req = 2200;
-
     return CustomPaint(
       painter: _RadialPainter(
         progress: progress,
         brightness: brightness,
+        curr_calories: curr_calories,
+        calorie_req: calorie_req,
       ),
       child: Container(
         height: height,
@@ -354,12 +359,14 @@ class _RadialProgress extends StatelessWidget {
 class _RadialPainter extends CustomPainter {
   final double progress;
   final Brightness brightness;
+  final int curr_calories, calorie_req;
 
-  int curr_calories = 1500;
-  int calorie_req = 2200;
-
-  _RadialPainter({required this.progress, required this.brightness});
-
+  _RadialPainter({
+    required this.progress,
+    required this.brightness,
+    required this.curr_calories,
+    required this.calorie_req,
+  });
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
