@@ -45,6 +45,21 @@ class NutritionDashboard extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final brightness = Theme.of(context).brightness;
 
+    int athlete_weight = 63;
+
+    // daily
+    int protein_req = (1.6 * athlete_weight).round();
+    int carbs_req = 245;
+    int fat_req = 84;
+
+    int curr_protein = 54;
+    int curr_carbs = 224;
+    int curr_fat = 60;
+
+    double protein_progress = curr_protein / protein_req;
+    double carbs_progress = curr_carbs / carbs_req;
+    double fat_progress = curr_fat / fat_req;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor(brightness),
       body: Stack(
@@ -80,25 +95,25 @@ class NutritionDashboard extends StatelessWidget {
                           children: <Widget>[
                             _IngredientProgress(
                               ingredient: "Protein",
-                              progress: 0.3,
+                              progress: protein_progress,
                               progressColor: Colors.green,
-                              leftAmount: 72,
+                              leftAmount: protein_req - curr_protein,
                               width: width * 0.28,
                             ),
                             SizedBox(height: 10),
                             _IngredientProgress(
                               ingredient: "Carbs",
-                              progress: 0.2,
+                              progress: carbs_progress,
                               progressColor: Colors.red,
-                              leftAmount: 252,
+                              leftAmount: carbs_req - curr_carbs,
                               width: width * 0.28,
                             ),
                             SizedBox(height: 10),
                             _IngredientProgress(
                               ingredient: "Fat",
-                              progress: 0.1,
+                              progress: fat_progress,
                               progressColor: Colors.yellow,
-                              leftAmount: 61,
+                              leftAmount: fat_req - curr_fat,
                               width: width * 0.28,
                             ),
                           ],
@@ -293,6 +308,10 @@ class _RadialProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+
+    int curr_calories = 1500;
+    int calorie_req = 2200;
+
     return CustomPaint(
       painter: _RadialPainter(
         progress: progress,
@@ -307,7 +326,7 @@ class _RadialProgress extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "1731",
+                  text: (calorie_req - curr_calories).toString(),
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -336,6 +355,9 @@ class _RadialPainter extends CustomPainter {
   final double progress;
   final Brightness brightness;
 
+  int curr_calories = 1500;
+  int calorie_req = 2200;
+
   _RadialPainter({required this.progress, required this.brightness});
 
   @override
@@ -347,8 +369,16 @@ class _RadialPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     Offset center = Offset(size.width / 2, size.height / 2);
-    double relativeProgress = 360 * progress;
-
+    double relativeProgress = 360 * (curr_calories/calorie_req);
+    paint.color = AppColors.lightGray;;
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: size.width / 2),
+      radians(-90),
+      radians(360),
+      false,
+      paint,
+    );
+    paint.color = AppColors.primaryColor(brightness);
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: size.width / 2),
       radians(-90),
