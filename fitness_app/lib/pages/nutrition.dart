@@ -87,6 +87,8 @@ class NutritionDashboard extends StatelessWidget {
                           width: width * 0.4,
                           height: width * 0.4,
                           progress: 0.7,
+                          curr_calories: 1500,
+                          calorie_req: 2200,
                         ),
                         SizedBox(width: 10),
                         Column(
@@ -297,25 +299,26 @@ class _IngredientProgress extends StatelessWidget {
 
 class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
+  final int curr_calories, calorie_req;
 
   const _RadialProgress({
     Key? key,
     required this.height,
     required this.width,
     required this.progress,
+    required this.curr_calories,
+    required this.calorie_req,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-
-    int curr_calories = 1500;
-    int calorie_req = 2200;
-
     return CustomPaint(
       painter: _RadialPainter(
         progress: progress,
         brightness: brightness,
+        curr_calories: curr_calories,
+        calorie_req: calorie_req,
       ),
       child: Container(
         height: height,
@@ -354,12 +357,14 @@ class _RadialProgress extends StatelessWidget {
 class _RadialPainter extends CustomPainter {
   final double progress;
   final Brightness brightness;
+  final int curr_calories, calorie_req;
 
-  int curr_calories = 1500;
-  int calorie_req = 2200;
-
-  _RadialPainter({required this.progress, required this.brightness});
-
+  _RadialPainter({
+    required this.progress,
+    required this.brightness,
+    required this.curr_calories,
+    required this.calorie_req,
+  });
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
