@@ -39,6 +39,8 @@ class SearchBar extends StatelessWidget {
 }
 
 class NutritionDashboard extends StatelessWidget {
+  static int calorie_req = 2200;
+  static int curr_calories = 1500;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -48,12 +50,10 @@ class NutritionDashboard extends StatelessWidget {
     int athlete_weight = 63;
 
     // daily
-    int calorie_req = 2200;
     int protein_req = (1.6 * athlete_weight).round();
     int carbs_req = 245;
     int fat_req = 84;
 
-    int curr_calories = 1500;
     int curr_protein = 54;
     int curr_carbs = 224;
     int curr_fat = 60;
@@ -85,10 +85,10 @@ class NutritionDashboard extends StatelessWidget {
                     SizedBox(height: 10),
                     Row(
                       children: <Widget>[
-                        _RadialProgress(
+                        RadialProgress(
                           width: width * 0.4,
                           height: width * 0.4,
-                          progress: 0.7,
+                          progress: 0,
                           curr_calories: curr_calories,
                           calorie_req: calorie_req,
                         ),
@@ -299,11 +299,11 @@ class _IngredientProgress extends StatelessWidget {
   }
 }
 
-class _RadialProgress extends StatelessWidget {
+class RadialProgress extends StatelessWidget {
   final double height, width, progress;
   final int curr_calories, calorie_req;
 
-  const _RadialProgress({
+  const RadialProgress({
     Key? key,
     required this.height,
     required this.width,
@@ -370,7 +370,7 @@ class _RadialPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..strokeWidth = 10
+      ..strokeWidth = 11
       ..color = AppColors.primaryColor(brightness)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
