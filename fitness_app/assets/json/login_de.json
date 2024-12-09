@@ -1,0 +1,10 @@
+{
+  "language": "de",
+  "logo_path": "assets/images/logo_purple_transp.png",
+  "welcome_text": "Willkommen zurück",
+  "email_label": "Email",
+  "password_label": "Passwort",
+  "login_button_text": "Anmelden",
+  "signup_text": "Noch keinen Account? Registrieren",
+  "login_error": "Die Email oder das Passwort ist falsch"
+}

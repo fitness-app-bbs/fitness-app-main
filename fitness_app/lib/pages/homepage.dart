@@ -5,6 +5,7 @@ import 'package:FitnessApp/pages/workouts.dart';
 import 'package:FitnessApp/pages/nutrition.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -28,9 +29,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadLocalizedStrings();
     _initializePedometer();
     _requestActivityPermission();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadLocalizedStrings();
   }
 
   Future<void> _requestActivityPermission() async {
@@ -43,10 +49,24 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> _loadLocalizedStrings() async {
-    String jsonString = await rootBundle.loadString('assets/json/homepage.json');
-    setState(() {
-      localizedStrings = json.decode(jsonString);
-    });
+    final locale = Localizations.localeOf(context);
+    String jsonString;
+
+    try {
+      if (locale.languageCode == 'de') {
+        jsonString = await rootBundle.loadString('assets/json/homepage_de.json');
+        await initializeDateFormatting('de_DE', null);
+      } else {
+        jsonString = await rootBundle.loadString('assets/json/homepage_en.json');
+        await initializeDateFormatting('en_US', null);
+      }
+
+      setState(() {
+        localizedStrings = json.decode(jsonString);
+      });
+    } catch (e) {
+      print("Error: Failed to load json file $e");
+    }
   }
 
   void _initializePedometer() {
@@ -123,6 +143,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(Brightness brightness) {
+    final locale = Localizations.localeOf(context).toString();
     final brightness = Theme.of(context).brightness;
     return SingleChildScrollView(
       child: Padding(
@@ -154,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
+                          "${DateFormat(localizedStrings!['current_day'], locale).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date'], locale).format(DateTime.now())}",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 18,
@@ -492,6 +513,7 @@ class StepCounter extends StatelessWidget {
   }
 
 }
+
 
 BoxDecoration _buildBoxDecoration(Brightness brightness) {
   return BoxDecoration(

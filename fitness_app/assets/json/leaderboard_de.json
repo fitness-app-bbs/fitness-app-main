@@ -1,0 +1,20 @@
+{
+  "language": "de",
+  "invite_friends_title": "Lade deine Freunde ein!",
+  "invite_friends_description": "Sieh, wer in der Bestenliste führt.",
+  "invite_button": "Einladen",
+  "leaderboard_title": "Rangliste",
+  "points": "Punkte",
+  "leaderboard": [
+    {"name": "John Doe", "score": 1100},
+    {"name": "Jane Smith", "score": 1150},
+    {"name": "Alice Johnson", "score": 1100},
+    {"name": "Bob Brown", "score": 900},
+    {"name": "Charlie Davis", "score": 850},
+    {"name": "Haley Horn", "score": 700},
+    {"name": "James Henrison", "score": 657},
+    {"name": "Max Betel", "score": 546},
+    {"name": "Bobie Kleid", "score": 321},
+    {"name": "Chuck Bass", "score": 190}
+  ]
+}

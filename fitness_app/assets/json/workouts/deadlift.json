@@ -1,19 +1,40 @@
 {
-  "name": "Deadlift",
+  "name": {
+    "en": "Deadlift",
+    "de": "Gewichtheben"
+  },
   "iconUrl": "assets/images/deadlift.png",
-  "description": "The Deadlift is a full-body strength exercise that primarily targets the posterior chain, including your hamstrings, glutes, and lower back.",
+  "description": {
+    "en": "The Deadlift is a full-body strength exercise that primarily targets the posterior chain, including your hamstrings, glutes, and lower back.",
+    "de": "Das Kreuzheben ist eine Ganzkörperkraftübung, die hauptsächlich die hintere Muskelkette, einschließlich der Oberschenkelrückseite, Gesäßmuskulatur und des unteren Rückens, anspricht."
+  },
   "instruction": {
-    "howToPerform": [
-      "Stand with your feet hip-width apart, toes under the barbell.",
-      "Grip the barbell just outside your knees with palms facing down.",
-      "With a flat back and engaged core, lift the bar by driving through your heels, standing up straight and locking your hips at the top.",
-      "Lower the bar back down by hinging at your hips, keeping the bar close to your body."
-    ],
-    "variants": [
-      "Sumo Deadlift: Use a wider stance and grip the bar between your legs to target the inner thighs and glutes.",
-      "Romanian Deadlift: Focus on the hamstrings by lowering the bar with a slight bend in the knees, keeping the bar close to your shins.",
-      "Single-Leg Deadlift: Perform with one leg to challenge balance and stability."
-    ]
+    "howToPerform": {
+      "en": [
+        "Stand with your feet hip-width apart, toes under the barbell.",
+        "Grip the barbell just outside your knees with palms facing down.",
+        "With a flat back and engaged core, lift the bar by driving through your heels, standing up straight and locking your hips at the top.",
+        "Lower the bar back down by hinging at your hips, keeping the bar close to your body."
+      ],
+      "de": [
+        "Stellen Sie Ihre Füße hüftbreit auf und positionieren Sie die Zehen unter der Langhantel.",
+        "Greifen Sie die Langhantel außerhalb Ihrer Knie mit den Handflächen nach unten.",
+        "Heben Sie die Hantel mit geradem Rücken und angespannter Körpermitte, indem Sie durch die Fersen drücken, stehen Sie aufrecht und verriegeln Sie die Hüften oben.",
+        "Senken Sie die Hantel wieder ab, indem Sie in der Hüfte nachgeben und die Hantel nah am Körper halten."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Sumo Deadlift: Use a wider stance and grip the bar between your legs to target the inner thighs and glutes.",
+        "Romanian Deadlift: Focus on the hamstrings by lowering the bar with a slight bend in the knees, keeping the bar close to your shins.",
+        "Single-Leg Deadlift: Perform with one leg to challenge balance and stability."
+      ],
+      "de": [
+        "Sumo-Gewichtheben: Verwenden Sie einen breiteren Stand und greifen Sie die Hantel zwischen den Beinen, um die inneren Oberschenkel und Gesäßmuskeln zu trainieren.",
+        "Rumänisches Gewichtheben: Konzentrieren Sie sich auf die Oberschenkelrückseite, indem Sie die Hantel mit leicht gebeugten Knien absenken und nah an den Schienbeinen halten.",
+        "Einbeiniges Gewichtheben: Führen Sie die Übung mit einem Bein aus, um Balance und Stabilität zu verbessern."
+      ]
+    }
   },
   "imageUrl": "assets/images/deadlift.png"
 }

@@ -1,18 +1,38 @@
 {
-  "name": "Lunges",
+  "name": {
+    "en": "Lunges",
+    "de": "Ausfallschritte"
+  },
   "iconUrl": "assets/images/lunges.png",
-  "description": "Lunges are an excellent lower-body workout that engages your quads, hamstrings, and glutes. This functional movement also helps to improve balance, flexibility, and core strength.",
+  "description": {
+    "en": "Lunges are an excellent lower-body workout that engages your quads, hamstrings, and glutes. This functional movement also helps to improve balance, flexibility, and core strength.",
+    "de": "Ausfallschritte sind ein hervorragendes Training für den Unterkörper, das die Oberschenkelmuskeln, die hinteren Oberschenkel und die Gesäßmuskulatur beansprucht. Diese funktionelle Bewegung verbessert auch das Gleichgewicht, die Flexibilität und die Rumpfkraft."
+  },
   "instruction": {
-    "howToPerform": [
-      "Stand tall with feet hip-width apart.",
-      "Step forward with one leg, lowering your hips until both knees are bent at 90-degree angles.",
-      "Push through the heel of the front foot to return to the starting position, then switch legs."
-    ],
-    "variants": [
-      "Walking Lunges: Step forward with alternating legs as you walk across the floor.",
-      "Reverse Lunges: Step backward instead of forward to focus on the glutes and hamstrings.",
-      "Weighted Lunges: Hold dumbbells or a barbell for added resistance."
-    ]
+    "howToPerform": {
+      "en": [
+        "Stand tall with feet hip-width apart.",
+        "Step forward with one leg, lowering your hips until both knees are bent at 90-degree angles.",
+        "Push through the heel of the front foot to return to the starting position, then switch legs."
+      ],
+      "de": [
+        "Stehen Sie aufrecht mit hüftbreit aufgestellten Füßen.",
+        "Machen Sie mit einem Bein einen Schritt nach vorne, und senken Sie die Hüften, bis beide Knie einen 90-Grad-Winkel bilden.",
+        "Drücken Sie sich mit der Ferse des vorderen Fußes zurück in die Ausgangsposition und wechseln Sie das Bein."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Walking Lunges: Step forward with alternating legs as you walk across the floor.",
+        "Reverse Lunges: Step backward instead of forward to focus on the glutes and hamstrings.",
+        "Weighted Lunges: Hold dumbbells or a barbell for added resistance."
+      ],
+      "de": [
+        "Gehende Ausfallschritte: Machen Sie abwechselnd Schritte nach vorne, während Sie über den Boden gehen.",
+        "Rückwärts-Ausfallschritte: Machen Sie einen Schritt nach hinten, um sich auf die Gesäß- und hinteren Oberschenkelmuskeln zu konzentrieren.",
+        "Gewichtete Ausfallschritte: Halten Sie Kurzhanteln oder eine Langhantel für zusätzlichen Widerstand."
+      ]
+    }
   },
   "imageUrl": "assets/images/lunges.png"
 }

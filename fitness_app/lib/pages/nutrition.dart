@@ -41,6 +41,7 @@ class SearchBar extends StatelessWidget {
 class NutritionDashboard extends StatelessWidget {
   static int calorie_req = 2200;
   static int curr_calories = 1500;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -92,7 +93,7 @@ class NutritionDashboard extends StatelessWidget {
                           curr_calories: curr_calories,
                           calorie_req: calorie_req,
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 25),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,15 +218,14 @@ class NutritionDashboard extends StatelessWidget {
 
   BoxDecoration _buildBoxDecorationWithShadow(Brightness brightness) {
     return BoxDecoration(
-      color: brightness == Brightness.dark ? Colors.grey[900] : Colors.white,
-      borderRadius: BorderRadius.circular(8),
+      color: AppColors.cardColor(brightness),
+      borderRadius: BorderRadius.circular(16),
       boxShadow: [
-        if (brightness == Brightness.light)
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 4,
+            blurRadius: 6,
+            offset: Offset(0, 4),
           ),
       ],
     );
@@ -367,6 +367,7 @@ class _RadialPainter extends CustomPainter {
     required this.curr_calories,
     required this.calorie_req,
   });
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
@@ -386,6 +387,7 @@ class _RadialPainter extends CustomPainter {
       paint,
     );
     paint.color = AppColors.primaryColor(brightness);
+
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: size.width / 2),
       radians(-90),

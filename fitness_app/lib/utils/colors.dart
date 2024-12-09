@@ -36,6 +36,27 @@ class AppColors {
     return brightness == Brightness.light ? _lightSecondaryColor : _darkSecondaryColor;
   }
 
+  static const Color _red = Color(0xFFD50B0D);
+  static const Color _lightred = Color(0xFFFFEBEE);
+
+  static Color workoutDescriptionColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightred : _red;
+  }
+
+  static const Color _orange = Color(0xFFFFA500);
+  static const Color _lightorange = Color(0xFFFFF3E0);
+
+  static Color workoutVariantsColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightorange : _orange;
+  }
+
+  static const Color _green = Color(0xFF008000);
+  static const Color _lightgreen = Color(0xFFE7F5E9);
+
+  static Color workoutPerformColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightgreen : _green;
+  }
+
   static const Color medium = Color(0xff7338a0);
 
   static const Color lightlight = Color(0xff9e72c3);
@@ -91,7 +112,7 @@ class AppColors {
   static const Color darkRed = Color(0xFF8B0000);
   static const Color firebrick = Color(0xFFB22222);
   static const Color crimson = Color(0xFFDC143C);
-  static const Color red = Color(0xFFFF0000);
+  static const Color red = Color(0xFFD50B0D);
   static const Color tomato = Color(0xFFFF6347);
   static const Color coral = Color(0xFFFF7F50);
   static const Color indianRed = Color(0xFFCD5C5C);
@@ -99,10 +120,13 @@ class AppColors {
   static const Color salmon = Color(0xFFFA8072);
   static const Color darkSalmon = Color(0xFFE9967A);
   static const Color lightSalmon = Color(0xFFFFA07A);
+  static const Color lightred = Color(0xFFFFEBEE);
   static const Color orangeRed = Color(0xFFFF4500);
   static const Color darkOrange = Color(0xFFFF8C00);
   static const Color orange = Color(0xFFFFA500);
+  static const Color lightorange = Color(0xFFFFF3E0);
   static const Color yellow = Color(0xFFFFFF00);
+  static const Color lightgreen = Color(0xFFE7F5E9);
   static const Color lawngreen = Color(0xFF7CFC00);
   static const Color chartreuse = Color(0xFF7FFF00);
   static const Color limeGreen = Color(0xFF32CD32);

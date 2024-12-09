@@ -1,19 +1,40 @@
 {
-  "name": "Tricep Dips",
+  "name": {
+    "en": "Tricep Dips",
+    "de": "Trizeps-Dips"
+  },
   "iconUrl": "assets/images/trizeps_dips.png",
-  "description": "Tricep Dips are a highly effective bodyweight exercise that targets the triceps, shoulders, and chest.",
+  "description": {
+    "en": "Tricep Dips are a highly effective bodyweight exercise that targets the triceps, shoulders, and chest.",
+    "de": "Trizeps-Dips sind eine äußerst effektive Eigengewichtsübung, die Trizeps, Schultern und Brustmuskeln trainiert."
+  },
   "instruction": {
-    "howToPerform": [
-      "Sit on the edge of a bench or chair with your hands next to your hips, fingers pointing forward.",
-      "Slide off the edge, supporting your weight with your arms.",
-      "Lower your body by bending your elbows until your arms form a 90-degree angle.",
-      "Push back up to the starting position."
-    ],
-    "variants": [
-      "Bench Dips with Feet Elevated: Place your feet on another bench to increase difficulty.",
-      "Parallel Bar Dips: Perform dips on parallel bars for more range of motion and greater difficulty.",
-      "Weighted Dips: Hold a weight plate or dumbbell between your legs for added resistance."
-    ]
+    "howToPerform": {
+      "en": [
+        "Sit on the edge of a bench or chair with your hands next to your hips, fingers pointing forward.",
+        "Slide off the edge, supporting your weight with your arms.",
+        "Lower your body by bending your elbows until your arms form a 90-degree angle.",
+        "Push back up to the starting position."
+      ],
+      "de": [
+        "Setzen Sie sich auf die Kante einer Bank oder eines Stuhls und platzieren Sie die Hände neben den Hüften mit den Fingern nach vorne zeigend.",
+        "Rutschen Sie von der Kante ab und stützen Sie das Körpergewicht mit den Armen.",
+        "Senken Sie den Körper, indem Sie die Ellbogen beugen, bis die Arme einen 90-Grad-Winkel bilden.",
+        "Drücken Sie sich zurück in die Ausgangsposition."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Bench Dips with Feet Elevated: Place your feet on another bench to increase difficulty.",
+        "Parallel Bar Dips: Perform dips on parallel bars for more range of motion and greater difficulty.",
+        "Weighted Dips: Hold a weight plate or dumbbell between your legs for added resistance."
+      ],
+      "de": [
+        "Bankdips mit erhöhten Füßen: Stellen Sie die Füße auf eine andere Bank, um die Schwierigkeit zu erhöhen.",
+        "Parallelbarren-Dips: Führen Sie Dips an Parallelbarren für mehr Bewegungsumfang und größere Schwierigkeit aus.",
+        "Gewichtete Dips: Halten Sie eine Gewichtsscheibe oder Kurzhantel zwischen den Beinen für zusätzlichen Widerstand."
+      ]
+    }
   },
   "imageUrl": "assets/images/trizeps_dips.png"
 }

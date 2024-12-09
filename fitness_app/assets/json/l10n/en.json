@@ -1,0 +1,18 @@
+{
+  "settings": "Settings",
+  "profile": "Profile",
+  "edit_your_info": "Edit your personal information",
+  "notifications": "Notifications",
+  "enable_or_disable_notifications": "Enable or disable app notifications",
+  "dark_mode": "Dark Mode",
+  "dark_mode_desc": "Toggle between light and dark mode",
+  "language": "Language",
+  "change_language": "Change the app language",
+  "english": "English",
+  "german": "German",
+  "privacy_security": "Privacy & Security",
+  "privacy_settings": "Manage your privacy settings",
+  "help_support": "Help & Support",
+  "contact_us": "Get Support or contact us",
+  "logout": "Logout"
+}

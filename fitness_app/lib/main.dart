@@ -5,16 +5,19 @@ import 'pages/auth_page.dart';
 import 'pages/homepage.dart';
 import 'pages/login.dart';
 import 'pages/signup.dart';
-import 'utils/colors.dart';
 import 'pages/leaderboard.dart';
 import 'pages/workouts.dart';
 import 'pages/nutrition.dart';
 import 'pages/calorie_calculator_page.dart';
 import 'pages/meal_recipe_page.dart';
 import 'pages/settings.dart';
+import 'utils/colors.dart';
+import 'utils/translation_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +48,16 @@ class MyApp extends StatelessWidget {
               '/signup': (context) => SignUpPage(),
               '/home': (context) => MyHomePage(),
             },
+            locale: appState.locale,
+            supportedLocales: const [
+              Locale('en'),
+              Locale('de'),
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
           );
         },
       ),
@@ -57,14 +70,29 @@ class MyAppState extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
   ThemeMode get themeMode => _themeMode;
 
+  Locale _locale = Locale('en');
+  Locale get locale => _locale;
+
+  final TranslationManager _translationManager = TranslationManager();
+  TranslationManager get translationManager => _translationManager;
+
   MyAppState() {
     _loadThemeMode();
+    _loadLocale();
+    _loadTranslations();
   }
 
   void toggleThemeMode() async {
     _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
     await _saveThemeMode();
+  }
+
+  void changeLocale(String languageCode) async{
+    _locale = Locale(languageCode);
+    await _translationManager.load(languageCode);
+    notifyListeners();
+    _saveLocale();
   }
 
   void _loadThemeMode() async {
@@ -74,9 +102,26 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _loadLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final langCode = prefs.getString('languageCode') ?? 'en';
+    _locale = Locale(langCode);
+    await _translationManager.load(langCode);
+    notifyListeners();
+  }
+
   Future<void> _saveThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isDarkMode', _themeMode == ThemeMode.dark);
+  }
+
+  Future<void> _saveLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('languageCode', _locale.languageCode);
+  }
+
+  Future<void> _loadTranslations() async {
+    await _translationManager.load(_locale.languageCode);
   }
 }
 
@@ -153,24 +198,28 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CustomNavBarTheme {
-  static NavigationBarThemeData theme (Brightness brightness) {
+  static NavigationBarThemeData theme(Brightness brightness) {
     return NavigationBarThemeData(
       backgroundColor: AppColors.cardColor(brightness),
       indicatorColor: AppColors.backgroundColor(brightness),
-      labelTextStyle: MaterialStateProperty.all(TextStyle(
-        color: AppColors.textColor(brightness),
-        fontWeight: FontWeight.bold,
-      )),
-      iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+      iconTheme: MaterialStateProperty.resolveWith<IconThemeData>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return IconThemeData(
+              color: AppColors.textColor(brightness),
+              size: 30,
+            );
+          }
           return IconThemeData(
             color: AppColors.textColor(brightness),
+            size: 30,
           );
-        }
-        return IconThemeData(
-          color: AppColors.textColor(brightness),
-        );
-      }),
+        },
+      ),
+      height: 75,
     );
   }
 }
+
+

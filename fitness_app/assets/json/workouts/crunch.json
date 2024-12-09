@@ -1,19 +1,40 @@
 {
-  "name": "Crunch",
+  "name": {
+    "en": "Crunch",
+    "de": "Situps"
+  },
   "iconUrl": "assets/images/crunch.png",
-  "description": "Crunches are essential for building core strength and toning the abdominal muscles. This exercise isolates the abs while minimizing strain on the lower back.",
+  "description": {
+    "en": "Crunches are essential for building core strength and toning the abdominal muscles. This exercise isolates the abs while minimizing strain on the lower back.",
+    "de": "Situps sind essenziell für den Aufbau der Rumpfkraft und das Formen der Bauchmuskeln. Diese Übung isoliert die Bauchmuskeln und minimiert gleichzeitig die Belastung des unteren Rückens."
+  },
   "instruction": {
-    "howToPerform": [
-      "Lie on your back with your knees bent and feet flat on the floor, hip-width apart.",
-      "Place your hands behind your head or cross them over your chest.",
-      "Lift your shoulders off the ground by engaging your core, keeping your lower back in contact with the floor.",
-      "Hold the contraction at the top for a second before slowly lowering back down."
-    ],
-    "variants": [
-      "Bicycle Crunch: Bring your opposite elbow toward your knee while alternating legs in a cycling motion.",
-      "Weighted Crunch: Hold a plate or dumbbell across your chest to increase resistance.",
-      "Reverse Crunch: Lift your knees toward your chest as you curl your hips off the ground."
-    ]
+    "howToPerform": {
+      "en": [
+        "Lie on your back with your knees bent and feet flat on the floor, hip-width apart.",
+        "Place your hands behind your head or cross them over your chest.",
+        "Lift your shoulders off the ground by engaging your core, keeping your lower back in contact with the floor.",
+        "Hold the contraction at the top for a second before slowly lowering back down."
+      ],
+      "de": [
+        "Legen Sie sich auf den Rücken, beugen Sie die Knie und stellen Sie die Füße hüftbreit auf den Boden.",
+        "Legen Sie die Hände hinter den Kopf oder verschränken Sie sie vor der Brust.",
+        "Heben Sie die Schultern vom Boden ab, indem Sie Ihre Körpermitte anspannen, und halten Sie den unteren Rücken auf dem Boden.",
+        "Halten Sie die Kontraktion oben für eine Sekunde und senken Sie sich dann langsam wieder ab."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Bicycle Crunch: Bring your opposite elbow toward your knee while alternating legs in a cycling motion.",
+        "Weighted Crunch: Hold a plate or dumbbell across your chest to increase resistance.",
+        "Reverse Crunch: Lift your knees toward your chest as you curl your hips off the ground."
+      ],
+      "de": [
+        "Fahrrad-Situps: Führen Sie den gegenüberliegenden Ellbogen zum Knie, während Sie die Beine in einer Radfahrbewegung abwechseln.",
+        "Gewichteter Situp: Halten Sie eine Scheibe oder Kurzhantel auf der Brust, um den Widerstand zu erhöhen.",
+        "Umgekehrter Situp: Ziehen Sie die Knie zur Brust, während Sie die Hüften vom Boden abrollen."
+      ]
+    }
   },
   "imageUrl": "assets/images/crunch.png"
 }

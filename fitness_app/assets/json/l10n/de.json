@@ -1,0 +1,18 @@
+{
+  "settings": "Einstellungen",
+  "profile": "Profil",
+  "edit_your_info": "Bearbeite deine persönlichen Daten",
+  "notifications": "Benachrichtigungen",
+  "enable_or_disable_notifications": "Benachrichtigungen aktivieren oder deaktivieren",
+  "dark_mode": "Dark Mode",
+  "dark_mode_desc": "Zwischen hellem und dunklem Modus umschalten",
+  "language": "Sprache",
+  "change_language": "App-Sprache ändern",
+  "english": "Englisch",
+  "german": "Deutsch",
+  "privacy_security": "Datenschutz",
+  "privacy_settings": "Verwalte deine Datenschutzeinstellungen",
+  "help_support": "Hilfe & Support",
+  "contact_us": "Bekomme Hilfe oder kontaktiere unseren Support",
+  "logout": "Abmelden"
+}

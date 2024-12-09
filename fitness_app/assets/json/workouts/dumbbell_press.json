@@ -1,18 +1,38 @@
 {
-  "name": "Dumbbell Press",
+  "name": {
+    "en": "Dumbbell Press",
+    "de": "Kurzhantelbankdrücken"
+  },
   "iconUrl": "assets/images/dumbbell_press.png",
-  "description": "The Dumbbell Press is a versatile strength-building exercise that targets your chest, shoulders, and triceps. Using dumbbells adds an element of instability, engaging your stabilizer muscles more.",
+  "description": {
+    "en": "The Dumbbell Press is a versatile strength-building exercise that targets your chest, shoulders, and triceps. Using dumbbells adds an element of instability, engaging your stabilizer muscles more.",
+    "de": "Das Kurzhantelbankdrücken ist eine vielseitige Kraftübung, die Brust, Schultern und Trizeps trainiert. Durch die Verwendung von Kurzhanteln wird die Instabilität erhöht, was die Stützmuskulatur stärker beansprucht."
+  },
   "instruction": {
-    "howToPerform": [
-      "Lie on a flat bench, holding a dumbbell in each hand at chest height with palms facing forward.",
-      "Press the dumbbells up by extending your arms, squeezing your chest at the top.",
-      "Lower the weights back to your chest with control."
-    ],
-    "variants": [
-      "Incline Dumbbell Press: Use an incline bench to shift focus to the upper chest.",
-      "Neutral Grip Dumbbell Press: Hold the dumbbells with palms facing each other to reduce shoulder strain.",
-      "Single-Arm Dumbbell Press: Perform one arm at a time to improve unilateral strength and stability."
-    ]
+    "howToPerform": {
+      "en": [
+        "Lie on a flat bench, holding a dumbbell in each hand at chest height with palms facing forward.",
+        "Press the dumbbells up by extending your arms, squeezing your chest at the top.",
+        "Lower the weights back to your chest with control."
+      ],
+      "de": [
+        "Legen Sie sich auf eine flache Bank und halten Sie in jeder Hand eine Kurzhantel auf Brusthöhe mit den Handflächen nach vorne.",
+        "Drücken Sie die Kurzhanteln nach oben, indem Sie Ihre Arme strecken und die Brust oben anspannen.",
+        "Senken Sie die Gewichte kontrolliert zurück zur Brust."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Incline Dumbbell Press: Use an incline bench to shift focus to the upper chest.",
+        "Neutral Grip Dumbbell Press: Hold the dumbbells with palms facing each other to reduce shoulder strain.",
+        "Single-Arm Dumbbell Press: Perform one arm at a time to improve unilateral strength and stability."
+      ],
+      "de": [
+        "Schrägbank-Kurzhantelbankdrücken: Verwenden Sie eine Schrägbank, um den Fokus auf die obere Brust zu legen.",
+        "Neutralgriff-Kurzhantelbankdrücken: Halten Sie die Kurzhanteln mit den Handflächen zueinander, um die Belastung der Schultern zu reduzieren.",
+        "Einarmiges Kurzhantelbankdrücken: Führen Sie die Übung mit einem Arm aus, um einseitige Stärke und Stabilität zu verbessern."
+      ]
+    }
   },
   "imageUrl": "assets/images/dumbbell_press.png"
 }
