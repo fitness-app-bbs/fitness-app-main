@@ -5,11 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:FitnessApp/utils/colors.dart';
 
 class Workout {
-  final String name;
+  final Map<String, String> name;
   final String iconUrl;
-  final String description;
-  final String howToPerform;
-  final String variants;
+  final Map<String, String> description;
+  final Map<String, List<String>> howToPerform;
+  final Map<String, List<String>> variants;
   final String imageUrl;
 
   Workout({
@@ -23,13 +23,13 @@ class Workout {
 
   factory Workout.fromJson(Map<String, dynamic> json) {
     return Workout(
-      name: json['name'] as String,
+      name: Map<String, String>.from(json['name']),
       iconUrl: json['iconUrl'] as String,
-      description: json['description'] as String,
-      howToPerform: (json['instruction']['howToPerform'] as List<dynamic>?)
-          ?.join('\n') ?? '',
-      variants: (json['instruction']['variants'] as List<dynamic>?)
-          ?.join('\n') ?? '',
+      description: Map<String, String>.from(json['description']),
+      howToPerform: (json['instruction']['howToPerform'] as Map<String, dynamic>).map((key, value) =>
+          MapEntry(key, List<String>.from(value))),
+      variants: (json['instruction']['variants'] as Map<String, dynamic>).map((key, value) =>
+          MapEntry(key, List<String>.from(value))),
       imageUrl: json['imageUrl'] as String,
     );
   }
@@ -70,13 +70,15 @@ class _MainWorkoutScreenState extends State<MainWorkoutScreen> {
       'assets/json/workouts/triceps_dips.json',
     ];
 
+    final loadedWorkouts = <Workout>[];
     for (final file in workoutFiles) {
       final String response = await rootBundle.loadString(file);
-      final data = await json.decode(response);
-      workouts.add(Workout.fromJson(data));
+      final data = json.decode(response);
+      loadedWorkouts.add(Workout.fromJson(data));
     }
 
     setState(() {
+      workouts = loadedWorkouts;
       isLoading = false;
     });
   }
@@ -96,15 +98,20 @@ class _MainWorkoutScreenState extends State<MainWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
     return Scaffold(
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : IndexedStack(
         index: currentIndex,
         children: [
-          WorkoutPage(workouts: workouts, onWorkoutSelected: navigateToDetail),
+          WorkoutPage(workouts: workouts, onWorkoutSelected: navigateToDetail, locale: locale),
           if (selectedWorkout != null)
-            WorkoutDetailPage(workout: selectedWorkout!, onBack: goBackToMain),
+            WorkoutDetailPage(
+              workout: selectedWorkout!,
+              onBack: goBackToMain,
+              currentLanguage: locale,
+            ),
         ],
       ),
     );
@@ -114,8 +121,9 @@ class _MainWorkoutScreenState extends State<MainWorkoutScreen> {
 class WorkoutPage extends StatelessWidget {
   final List<Workout> workouts;
   final Function(Workout) onWorkoutSelected;
+  final String locale;
 
-  WorkoutPage({required this.workouts, required this.onWorkoutSelected});
+  WorkoutPage({required this.workouts, required this.onWorkoutSelected, required this.locale});
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +155,7 @@ class WorkoutPage extends StatelessWidget {
                   Image.asset(workout.iconUrl, height: 120, fit: BoxFit.contain),
                   SizedBox(height: 10),
                   Text(
-                    workout.name,
+                    workout.name[locale] ?? workout.name['en'] ?? 'No name',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -166,8 +174,13 @@ class WorkoutPage extends StatelessWidget {
 class WorkoutDetailPage extends StatelessWidget {
   final Workout workout;
   final VoidCallback onBack;
+  final String currentLanguage;
 
-  WorkoutDetailPage({required this.workout, required this.onBack});
+  WorkoutDetailPage({
+    required this.workout,
+    required this.onBack,
+    required this.currentLanguage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +189,7 @@ class WorkoutDetailPage extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor(brightness),
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor(brightness),
-        title: Text(workout.name),
+        title: Text(workout.name[currentLanguage] ?? workout.name['en'] ?? 'No translation available'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: onBack,
@@ -199,7 +212,7 @@ class WorkoutDetailPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                workout.name,
+                workout.name[currentLanguage] ?? workout.name['en']!,
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -211,19 +224,19 @@ class WorkoutDetailPage extends StatelessWidget {
                   SizedBox(width: 8),
                   Text(
                     "Description",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textColor(brightness)),
                   ),
                 ],
               ),
               SizedBox(height: 10),
               Card(
-                color: Colors.red[50], // Light red color
+                color: AppColors.workoutDescriptionColor(brightness), // Light red color
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    workout.description,
-                    style: TextStyle(fontSize: 16, height: 1.5),
+                    workout.description[currentLanguage] ?? workout.description['en']!,
+                    style: TextStyle(fontSize: 16, height: 1.5, color: AppColors.textColor(brightness)),
                   ),
                 ),
               ),
@@ -232,23 +245,23 @@ class WorkoutDetailPage extends StatelessWidget {
               SizedBox(height: 20),
               Row(
                 children: [
-                  Icon(FontAwesomeIcons.playCircle, color: Colors.green),
+                  Icon(FontAwesomeIcons.playCircle, color: AppColors.green),
                   SizedBox(width: 8),
                   Text(
                     "How to Perform",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textColor(brightness)),
                   ),
                 ],
               ),
               SizedBox(height: 10),
               Card(
-                color: Colors.green[50],
+                color: AppColors.workoutPerformColor(brightness),
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    workout.howToPerform,
-                    style: TextStyle(fontSize: 16, height: 1.5),
+                    (workout.howToPerform[currentLanguage] ?? workout.howToPerform['en']!).join('\n'),
+                    style: TextStyle(fontSize: 16, height: 1.5, color: AppColors.textColor(brightness)),
                   ),
                 ),
               ),
@@ -257,23 +270,23 @@ class WorkoutDetailPage extends StatelessWidget {
               SizedBox(height: 20),
               Row(
                 children: [
-                  Icon(FontAwesomeIcons.list, color: Colors.orange),
+                  Icon(FontAwesomeIcons.list, color: AppColors.orange),
                   SizedBox(width: 8),
                   Text(
                     "Variants",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textColor(brightness)),
                   ),
                 ],
               ),
               SizedBox(height: 10),
               Card(
-                color: Colors.orange[50],
+                color: AppColors.workoutVariantsColor(brightness),
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    workout.variants,
-                    style: TextStyle(fontSize: 16, height: 1.5),
+                    (workout.variants[currentLanguage] ?? workout.variants['en']!).join('\n'),
+                    style: TextStyle(fontSize: 16, height: 1.5, color: AppColors.textColor(brightness)),
                   ),
                 ),
               ),

@@ -23,7 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _loadLocalizedStrings() async {
-    String jsonString = await rootBundle.loadString('assets/json/signup.json');
+    String jsonString = await rootBundle.loadString('assets/json/signup_en.json');
     setState(() {
       localizedStrings = json.decode(jsonString);
     });
@@ -105,9 +105,10 @@ class _SignUpPageState extends State<SignUpPage> {
     if (localizedStrings == null) {
       return Center(child: CircularProgressIndicator());
     }
-
+    
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor(brightness),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -122,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.black,
+                    color: AppColors.textColor(brightness),
                   ),
                 ),
                 SizedBox(height: 40),
@@ -181,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: 40),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.dark,
+                    backgroundColor: AppColors.primaryColor(brightness),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),

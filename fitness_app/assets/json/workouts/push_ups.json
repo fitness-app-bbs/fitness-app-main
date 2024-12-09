@@ -1,19 +1,38 @@
 {
-  "name": "Push Ups",
+  "name": {
+    "en": "Push Ups",
+    "de": "Liegestütze"
+  },
   "iconUrl": "assets/images/push_ups.png",
-  "description": "Push-Ups are one of the most fundamental and effective bodyweight exercises, targeting the chest, shoulders, triceps, and core.",
+  "description": {
+    "en": "Push-Ups are one of the most fundamental and effective bodyweight exercises, targeting the chest, shoulders, triceps, and core.",
+    "de": "Liegestütze gehören zu den grundlegendsten und effektivsten Eigengewichtsübungen und trainieren Brust, Schultern, Trizeps und die Körpermitte."
+  },
   "instruction": {
-    "howToPerform": [
-      "Start in a plank position with hands slightly wider than shoulder-width apart.",
-      "Lower your chest to the ground while keeping your core tight and elbows at a 45-degree angle.",
-      "Push yourself back up to the starting position."
-    ],
-    "variants": [
-      "Knee Push-Ups: Perform on your knees for an easier version.",
-      "Decline Push-Ups: Place your feet on an elevated surface to increase difficulty.",
-      "Diamond Push-Ups: Place your hands close together to target the triceps more."
-    ]
+    "howToPerform": {
+      "en": [
+        "Start in a plank position with hands slightly wider than shoulder-width apart.",
+        "Lower your chest to the ground while keeping your core tight and elbows at a 45-degree angle.",
+        "Push yourself back up to the starting position."
+      ],
+      "de": [
+        "Beginnen Sie in der Plank-Position, mit den Händen etwas breiter als schulterbreit aufgestellt.",
+        "Senken Sie die Brust zum Boden ab, halten Sie die Körpermitte angespannt und die Ellbogen in einem 45-Grad-Winkel.",
+        "Drücken Sie sich zurück in die Ausgangsposition."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Knee Push-Ups: Perform on your knees for an easier version.",
+        "Decline Push-Ups: Place your feet on an elevated surface to increase difficulty.",
+        "Diamond Push-Ups: Place your hands close together to target the triceps more."
+      ],
+      "de": [
+        "Liegestütze auf den Knien: Führen Sie die Übung auf den Knien aus, um sie zu erleichtern.",
+        "Negative Liegestütze: Platzieren Sie Ihre Füße auf einer erhöhten Fläche, um die Schwierigkeit zu erhöhen.",
+        "Diamant-Liegestütze: Platzieren Sie Ihre Hände nah beieinander, um den Trizeps stärker zu beanspruchen."
+      ]
+    }
   },
   "imageUrl": "assets/images/push_ups.png"
 }
-

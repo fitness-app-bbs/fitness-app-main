@@ -1,18 +1,38 @@
 {
-  "name": "Squats",
+  "name": {
+    "en": "Squats",
+    "de": "Kniebeugen"
+  },
   "iconUrl": "assets/images/squats.png",
-  "description": "Squats are a fundamental lower-body exercise that works your quads, hamstrings, glutes, and core. This compound movement improves leg strength, mobility, and overall stability.",
+  "description": {
+    "en": "Squats are a fundamental lower-body exercise that works your quads, hamstrings, glutes, and core. This compound movement improves leg strength, mobility, and overall stability.",
+    "de": "Kniebeugen sind eine grundlegende Übung für den Unterkörper, die die Oberschenkel, hinteren Oberschenkelmuskeln, Gesäßmuskeln und die Körpermitte stärkt. Diese komplexe Bewegung verbessert die Beinkraft, Beweglichkeit und allgemeine Stabilität."
+  },
   "instruction": {
-    "howToPerform": [
-      "Stand with feet shoulder-width apart, toes slightly pointed outward.",
-      "Push your hips back and bend your knees to lower into a squat position, keeping your chest upright.",
-      "Drive through your heels to return to the starting position."
-    ],
-    "variants": [
-      "Goblet Squat: Hold a dumbbell or kettlebell at chest height to engage the core more.",
-      "Sumo Squat: Widen your stance to target the inner thighs and glutes.",
-      "Jump Squat: Add a jump at the top of the movement to increase intensity and power."
-    ]
+    "howToPerform": {
+      "en": [
+        "Stand with feet shoulder-width apart, toes slightly pointed outward.",
+        "Push your hips back and bend your knees to lower into a squat position, keeping your chest upright.",
+        "Drive through your heels to return to the starting position."
+      ],
+      "de": [
+        "Stellen Sie sich mit schulterbreit auseinander stehenden Füßen hin, die Zehen leicht nach außen zeigend.",
+        "Schieben Sie die Hüfte nach hinten und beugen Sie die Knie, um in die Kniebeuge-Position zu gelangen, dabei den Oberkörper aufrecht halten.",
+        "Drücken Sie sich mit den Fersen zurück in die Ausgangsposition."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Goblet Squat: Hold a dumbbell or kettlebell at chest height to engage the core more.",
+        "Sumo Squat: Widen your stance to target the inner thighs and glutes.",
+        "Jump Squat: Add a jump at the top of the movement to increase intensity and power."
+      ],
+      "de": [
+        "Kelch-Kniebeuge: Halten Sie eine Hantel oder Kettlebell auf Brusthöhe, um den Rumpf stärker zu beanspruchen.",
+        "Sumo-Kniebeuge: Erweitern Sie Ihre Haltung, um die inneren Oberschenkel und Gesäßmuskeln anzusprechen.",
+        "Sprung-Kniebeuge: Füge einen Sprung am oberen Ende der Bewegung hinzu, um die Intensität und Kraft zu erhöhen."
+      ]
+    }
   },
   "imageUrl": "assets/images/squats.png"
 }

@@ -1,8 +1,10 @@
 {
+  "language": "en",
   "invite_friends_title": "Invite your friends!",
   "invite_friends_description": "See who is leading the leaderboard.",
   "invite_button": "Invite",
   "leaderboard_title": "Top Rankings",
+  "points": "Points",
   "leaderboard": [
     {"name": "John Doe", "score": 1100},
     {"name": "Jane Smith", "score": 1150},

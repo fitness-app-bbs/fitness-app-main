@@ -1,19 +1,40 @@
 {
-  "name": "Ball Bounce",
+  "name": {
+    "en": "Ball Bounce",
+    "de": "Ballwurf"
+  },
   "iconUrl": "assets/images/ball_bounce.png",
-  "description": "The Ball Bounce workout focuses on building strength, balance, and endurance using a weighted medicine ball. This functional training exercise engages your core, arms, and legs as you perform powerful ball slams or bounces. It is perfect for enhancing explosive power, improving coordination, and burning calories through full-body engagement. Ideal for those looking to challenge their athleticism and strength in a dynamic way.",
+  "description": {
+    "en": "The Ball Bounce workout focuses on building strength, balance, and endurance using a weighted medicine ball. This functional training exercise engages your core, arms, and legs as you perform powerful ball slams or bounces. It is perfect for enhancing explosive power, improving coordination, and burning calories through full-body engagement. Ideal for those looking to challenge their athleticism and strength in a dynamic way.",
+    "de": "Das Ballwurf-Workout konzentriert sich auf den Aufbau von Kraft, Balance und Ausdauer mit einem Medizinball. Diese funktionale Trainingsübung beansprucht Rumpf, Arme und Beine durch kraftvolle Ballwürfe oder -praller. Perfekt, um explosive Kraft zu verbessern, Koordination zu steigern und Kalorien durch Ganzkörpertraining zu verbrennen. Ideal für alle, die ihre Athletik und Stärke dynamisch herausfordern wollen."
+  },
   "instruction": {
-    "howToPerform": [
-      "Start with your feet shoulder-width apart, holding a medicine ball in both hands at chest height.",
-      "Extend your arms and lift the ball overhead.",
-      "In one explosive motion, slam the ball down onto the floor as hard as possible, engaging your core and bending your knees slightly.",
-      "Catch the ball on the rebound (if it bounces) or pick it up and repeat."
-    ],
-    "variants": [
-      "Side Ball Bounce: Slam the ball to one side of your body, alternating sides.",
-      "Overhead Squat with Ball Bounce: Perform a squat each time you slam the ball.",
-      "Lunge and Bounce: Perform a reverse lunge while bouncing the ball between reps."
-    ]
+    "howToPerform": {
+      "en": [
+        "Start with your feet shoulder-width apart, holding a medicine ball in both hands at chest height.",
+        "Extend your arms and lift the ball overhead.",
+        "In one explosive motion, slam the ball down onto the floor as hard as possible, engaging your core and bending your knees slightly.",
+        "Catch the ball on the rebound (if it bounces) or pick it up and repeat."
+      ],
+      "de": [
+        "Stellen Sie sich mit schulterbreit auseinanderstehenden Füßen hin und halten Sie einen Medizinball in Brusthöhe.",
+        "Strecken Sie die Arme aus und heben Sie den Ball über den Kopf.",
+        "Werfen Sie den Ball in einer explosiven Bewegung so hart wie möglich auf den Boden, spannen Sie dabei die Körpermitte an und beugen Sie leicht die Knie.",
+        "Fangen Sie den Ball nach dem Abprall (falls er springt) oder heben Sie ihn auf und wiederholen Sie den Vorgang."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Side Ball Bounce: Slam the ball to one side of your body, alternating sides.",
+        "Overhead Squat with Ball Bounce: Perform a squat each time you slam the ball.",
+        "Lunge and Bounce: Perform a reverse lunge while bouncing the ball between reps."
+      ],
+      "de": [
+        "Seitliches Prellen: Prellen Sie den Ball auf eine Körperseite. Wechseln Sie die Seiten und machen dies auf beiden Seiten ungefähr gleichlange.",
+        "Überkopf-Kniebeuge mit Wurf: Machen Sie eine Kniebeuge bei jedem Ballwurf.",
+        "Ausfallschritt und Prellen: Machen Sie einen Ausfallschritt rückwärts und prellen Sie den Ball währenddessen."
+      ]
+    }
   },
   "imageUrl": "assets/images/ball_bounce.png"
 }

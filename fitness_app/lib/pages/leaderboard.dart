@@ -19,12 +19,21 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   }
 
   Future<void> _loadLocalizedStrings() async {
-    String jsonString = await rootBundle.loadString('assets/json/leaderboard.json');
+    final locale = Localizations.localeOf(context);
+    final String jsonString;
+
+    if (locale.languageCode == 'de') {
+      jsonString = await rootBundle.loadString('assets/json/leaderboard_de.json');
+    } else {
+      jsonString = await rootBundle.loadString('assets/json/leaderboard_en.json');
+    }
+
     setState(() {
       localizedStrings = json.decode(jsonString);
       _calculateRanks();
     });
   }
+
 
   void _calculateRanks() {
     List<dynamic> leaderboard = localizedStrings!['leaderboard'];
@@ -36,9 +45,15 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    if (localizedStrings == null || locale.languageCode != localizedStrings!['language']) {
+      _loadLocalizedStrings();
+    }
+
     if (localizedStrings == null) {
       return Center(child: CircularProgressIndicator());
     }
+
     final brightness = Theme.of(context).brightness;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor(brightness),
@@ -157,7 +172,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    '${user['score']} pts',
+                    '${user['score']} ${localizedStrings!['points']}',
                     style: TextStyle(
                       color: AppColors.textColor(brightness),
                       fontSize: 16,

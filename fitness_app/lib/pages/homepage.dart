@@ -5,6 +5,7 @@ import 'package:FitnessApp/pages/workouts.dart';
 import 'package:FitnessApp/pages/nutrition.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -28,9 +29,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadLocalizedStrings();
     _initializePedometer();
     _requestActivityPermission();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadLocalizedStrings();
   }
 
   Future<void> _requestActivityPermission() async {
@@ -43,10 +49,24 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> _loadLocalizedStrings() async {
-    String jsonString = await rootBundle.loadString('assets/json/homepage.json');
-    setState(() {
-      localizedStrings = json.decode(jsonString);
-    });
+    final locale = Localizations.localeOf(context);
+    String jsonString;
+
+    try {
+      if (locale.languageCode == 'de') {
+        jsonString = await rootBundle.loadString('assets/json/homepage_de.json');
+        await initializeDateFormatting('de_DE', null);
+      } else {
+        jsonString = await rootBundle.loadString('assets/json/homepage_en.json');
+        await initializeDateFormatting('en_US', null);
+      }
+
+      setState(() {
+        localizedStrings = json.decode(jsonString);
+      });
+    } catch (e) {
+      print("Error: Failed to load json file $e");
+    }
   }
 
   void _initializePedometer() {
@@ -123,6 +143,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(Brightness brightness) {
+    final locale = Localizations.localeOf(context).toString();
+    final brightness = Theme.of(context).brightness;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          "${DateFormat(localizedStrings!['current_day']).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date']).format(DateTime.now())}",
+                          "${DateFormat(localizedStrings!['current_day'], locale).format(DateTime.now())}, ${DateFormat(localizedStrings!['current_date'], locale).format(DateTime.now())}",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 18,
@@ -177,10 +199,19 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.44, // 45% width
                     height: 200,
-                    child: _RadialProgress(
-                      width: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container width
-                      height: MediaQuery.of(context).size.width * 0.5, // Ensure it matches the container height
-                      progress: 0.7,
+                    decoration: _buildBoxDecoration(brightness), // Apply the box decoration here
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: RadialProgress(
+                            width: MediaQuery.of(context).size.width * 0.38,
+                            height: MediaQuery.of(context).size.width * 0.38,
+                            progress: 0,
+                            curr_calories: NutritionDashboard.curr_calories,
+                            calorie_req: NutritionDashboard.calorie_req,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -483,96 +514,6 @@ class StepCounter extends StatelessWidget {
 
 }
 
-
-
-
-class _RadialProgress extends StatelessWidget {
-  final double height, width, progress;
-
-  const _RadialProgress({
-    Key? key,
-    required this.height,
-    required this.width,
-    required this.progress,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    return Container(
-      decoration: _buildBoxDecoration(brightness),
-      padding: EdgeInsets.all(16),
-      width: width,
-      height: height,
-      child: Stack(
-        children: [
-          CustomPaint(
-            painter: _RadialPainter(progress: progress, brightness: brightness),
-            size: Size(width, height),
-          ),
-          Center(
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "1731",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.primaryColor(brightness),
-                    ),
-                  ),
-                  TextSpan(text: "\n"),
-                  TextSpan(
-                    text: "kcal left",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.primaryColor(brightness),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RadialPainter extends CustomPainter {
-  final double progress;
-  final Brightness brightness;
-
-  _RadialPainter({required this.progress, required this.brightness});
-
-  @override
-  void paint(Canvas canvas, Size size) async {
-    Paint paint = Paint()
-      ..strokeWidth = 10
-      ..color = AppColors.primaryColor(brightness)
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double relativeProgress = 360 * progress;
-
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: size.width / 2),
-      radians(-90),
-      radians(-relativeProgress),
-      false,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
-}
 
 BoxDecoration _buildBoxDecoration(Brightness brightness) {
   return BoxDecoration(

@@ -1,18 +1,38 @@
 {
-  "name": "Tricep Extensions",
+  "name": {
+    "en": "Tricep Extensions",
+    "de": "Trizepsstrecken"
+  },
   "iconUrl": "assets/images/laying_trizep_extensions.png",
-  "description": "Tricep Extensions isolate and strengthen the muscles at the back of your arms, helping you build definition and upper body strength.",
+  "description": {
+    "en": "Tricep Extensions isolate and strengthen the muscles at the back of your arms, helping you build definition and upper body strength.",
+    "de": "Trizepsstrecken isolieren und stärken die Muskeln auf der Rückseite der Arme und helfen, Definition und Oberkörperkraft aufzubauen."
+  },
   "instruction": {
-    "howToPerform": [
-      "Hold a dumbbell with both hands, extending your arms straight overhead.",
-      "Bend your elbows and lower the dumbbell behind your head until your forearms are parallel to the floor.",
-      "Extend your arms back up to the starting position, focusing on squeezing the triceps."
-    ],
-    "variants": [
-      "Skull Crushers: Use an EZ-bar or dumbbells while lying on a bench to target the triceps.",
-      "Cable Tricep Extensions: Use a cable machine with a rope attachment for continuous tension.",
-      "One-Arm Overhead Extension: Perform with one arm for better isolation."
-    ]
+    "howToPerform": {
+      "en": [
+        "Hold a dumbbell with both hands, extending your arms straight overhead.",
+        "Bend your elbows and lower the dumbbell behind your head until your forearms are parallel to the floor.",
+        "Extend your arms back up to the starting position, focusing on squeezing the triceps."
+      ],
+      "de": [
+        "Halten Sie eine Kurzhantel mit beiden Händen und strecken Sie die Arme gerade über den Kopf.",
+        "Beugen Sie die Ellbogen und senken Sie die Kurzhantel hinter den Kopf, bis die Unterarme parallel zum Boden sind.",
+        "Strecken Sie die Arme zurück in die Ausgangsposition und konzentrieren Sie sich darauf, den Trizeps anzuspannen."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Skull Crushers: Use an EZ-bar or dumbbells while lying on a bench to target the triceps.",
+        "Cable Tricep Extensions: Use a cable machine with a rope attachment for continuous tension.",
+        "One-Arm Overhead Extension: Perform with one arm for better isolation."
+      ],
+      "de": [
+        "Skull Crushers: Verwenden Sie eine SZ-Stange oder Kurzhanteln, während Sie auf einer Bank liegen, um den Trizeps zu trainieren.",
+        "Kabel-Trizepsstrecken: Nutzen Sie eine Kabelmaschine mit einem Seilaufsatz für kontinuierliche Spannung.",
+        "Einarmiges Überkopfstrecken: Führen Sie die Übung mit einem Arm aus, um eine bessere Isolation zu erzielen."
+      ]
+    }
   },
   "imageUrl": "assets/images/laying_trizep_extensions.png"
 }

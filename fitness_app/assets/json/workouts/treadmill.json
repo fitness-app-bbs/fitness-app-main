@@ -1,17 +1,36 @@
 {
-  "name": "Treadmill",
+  "name": {
+    "en": "Treadmill",
+    "de": "Laufen"
+  },
   "iconUrl": "assets/images/treadmill.png",
-  "description": "The Treadmill is a staple cardio machine for improving cardiovascular health and endurance. Whether you are walking, jogging, or sprinting, the treadmill allows you to control the intensity and incline for a personalized workout.",
+  "description": {
+    "en": "The Treadmill is a staple cardio machine for improving cardiovascular health and endurance. Whether you are walking, jogging, or sprinting, the treadmill allows you to control the intensity and incline for a personalized workout.",
+    "de": "Das Laufband ist ein unverzichtbares Cardiogerät zur Verbesserung der kardiovaskulären Gesundheit und Ausdauer. Ob Gehen, Joggen oder Sprinten – das Laufband ermöglicht es, Intensität und Steigung für ein individuelles Training zu kontrollieren."
+  },
   "instruction": {
-    "howToPerform": [
-      "Start with a walking or jogging pace, adjusting the speed and incline to suit your fitness level.",
-      "Focus on maintaining proper posture, engaging your core, and using your arms to help drive momentum."
-    ],
-    "variants": [
-      "Incline Walk: Increase the incline for a challenging uphill workout without increasing speed.",
-      "HIIT Intervals: Alternate between sprinting and walking to improve cardiovascular endurance.",
-      "Backward Walk: Walk backward at a slow pace to challenge different leg muscles."
-    ]
+    "howToPerform": {
+      "en": [
+        "Start with a walking or jogging pace, adjusting the speed and incline to suit your fitness level.",
+        "Focus on maintaining proper posture, engaging your core, and using your arms to help drive momentum."
+      ],
+      "de": [
+        "Beginnen Sie mit einem Geh- oder Joggingtempo und passen Sie Geschwindigkeit und Steigung an Ihr Fitnessniveau an.",
+        "Achten Sie auf eine aufrechte Haltung, spannen Sie die Körpermitte an und nutzen Sie die Arme zur Unterstützung der Bewegung."
+      ]
+    },
+    "variants": {
+      "en": [
+        "Incline Walk: Increase the incline for a challenging uphill workout without increasing speed.",
+        "HIIT Intervals: Alternate between sprinting and walking to improve cardiovascular endurance.",
+        "Backward Walk: Walk backward at a slow pace to challenge different leg muscles."
+      ],
+      "de": [
+        "Gehen mit Steigung: Erhöhen Sie die Steigung für ein anspruchsvolles Training bergauf, ohne die Geschwindigkeit zu erhöhen.",
+        "HIIT-Intervalle: Wechseln Sie zwischen Sprinten und Gehen, um die kardiovaskuläre Ausdauer zu verbessern.",
+        "Rückwärtsgehen: Gehen Sie langsam rückwärts, um andere Beinmuskeln zu beanspruchen."
+      ]
+    }
   },
   "imageUrl": "assets/images/treadmill.png"
 }
