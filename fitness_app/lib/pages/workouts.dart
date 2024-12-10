@@ -128,15 +128,20 @@ class WorkoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final cardWidth = screenWidth * 0.4;
+    final cardHeight = screenHeight * 0.4;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor(brightness),
-
       body: GridView.builder(
         padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0, bottom: 16.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
           childAspectRatio: 0.9,
         ),
         itemCount: workouts.length,
@@ -145,6 +150,7 @@ class WorkoutPage extends StatelessWidget {
           return GestureDetector(
             onTap: () => onWorkoutSelected(workout),
             child: Card(
+              color: AppColors.cardColor(brightness),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -152,7 +158,7 @@ class WorkoutPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(workout.iconUrl, height: 120, fit: BoxFit.contain),
+                  Image.asset(workout.iconUrl, height: cardHeight * 0.4, fit: BoxFit.contain),
                   SizedBox(height: 10),
                   Text(
                     workout.name[locale] ?? workout.name['en'] ?? 'No name',
@@ -168,6 +174,7 @@ class WorkoutPage extends StatelessWidget {
     );
   }
 }
+
 
 
 

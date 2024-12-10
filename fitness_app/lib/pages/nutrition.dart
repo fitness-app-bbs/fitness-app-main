@@ -87,41 +87,45 @@ class NutritionDashboard extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         RadialProgress(
-                          width: width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.40, // 40% width,
                           height: width * 0.4,
                           progress: 0,
                           curr_calories: curr_calories,
                           calorie_req: calorie_req,
                         ),
                         SizedBox(width: 25),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            _IngredientProgress(
-                              ingredient: "Protein",
-                              progress: protein_progress,
-                              progressColor: Colors.green,
-                              leftAmount: protein_req - curr_protein,
-                              width: width * 0.28,
-                            ),
-                            SizedBox(height: 10),
-                            _IngredientProgress(
-                              ingredient: "Carbs",
-                              progress: carbs_progress,
-                              progressColor: Colors.red,
-                              leftAmount: carbs_req - curr_carbs,
-                              width: width * 0.28,
-                            ),
-                            SizedBox(height: 10),
-                            _IngredientProgress(
-                              ingredient: "Fat",
-                              progress: fat_progress,
-                              progressColor: Colors.yellow,
-                              leftAmount: fat_req - curr_fat,
-                              width: width * 0.28,
-                            ),
-                          ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.40, // 40% width,
+                          child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _IngredientProgress(
+                                ingredient: "Protein",
+                                progress: protein_progress,
+                                progressColor: Colors.green,
+                                leftAmount: protein_req - curr_protein,
+                                width: MediaQuery.of(context).size.width * 0.26,
+                              ),
+                              SizedBox(height: 10),
+                              _IngredientProgress(
+                                ingredient: "Carbs",
+                                progress: carbs_progress,
+                                progressColor: Colors.red,
+                                leftAmount: carbs_req - curr_carbs,
+                                width: MediaQuery.of(context).size.width * 0.26,
+                              ),
+                              SizedBox(height: 10),
+                              _IngredientProgress(
+                                ingredient: "Fat",
+                                progress: fat_progress,
+                                progressColor: Colors.yellow,
+                                leftAmount: fat_req - curr_fat,
+                                width: MediaQuery.of(context).size.width * 0.26,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -254,6 +258,7 @@ class _IngredientProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -275,7 +280,7 @@ class _IngredientProgress extends StatelessWidget {
                   width: width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: AppColors.lightGray,
+                    color: AppColors.radialprogressColor(brightness),
                   ),
                 ),
                 Container(
@@ -378,7 +383,7 @@ class _RadialPainter extends CustomPainter {
 
     Offset center = Offset(size.width / 2, size.height / 2);
     double relativeProgress = 360 * (curr_calories/calorie_req);
-    paint.color = AppColors.lightGray;;
+    paint.color = AppColors.radialprogressColor(brightness);;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: size.width / 2),
       radians(-90),
