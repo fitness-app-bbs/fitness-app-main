@@ -176,8 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'Home',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.sports_rounded),
-              icon: Icon(Icons.sports_outlined),
+              selectedIcon: ImageIcon(AssetImage("assets/images/dumbbell_filled.png")),
+              icon: ImageIcon(AssetImage("assets/images/dumbbell.png")),
               label: 'Workouts',
             ),
             NavigationDestination(
@@ -208,16 +208,16 @@ class CustomNavBarTheme {
           if (states.contains(MaterialState.selected)) {
             return IconThemeData(
               color: AppColors.textColor(brightness),
-              size: 30,
+              size: 25,
             );
           }
           return IconThemeData(
             color: AppColors.textColor(brightness),
-            size: 30,
+            size: 25,
           );
         },
       ),
-      height: 75,
+      height: 60,
     );
   }
 }

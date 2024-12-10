@@ -8,6 +8,13 @@ class AppColors {
     return brightness == Brightness.light ? _lightBackgroundColor : _darkBackgroundColor;
   }
 
+  static const Color _lightradialprogressColor = Color(0xFFDCDBDC);
+  static const Color _darkradialprogressColor = Color(0xFF696969);
+
+  static Color radialprogressColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightradialprogressColor : _darkradialprogressColor;
+  }
+
   static const Color _lightCardColor = Color(0xFFFFFFFF);
   static const Color _darkCardColor = Color(0xFF3D3D3D);
 
