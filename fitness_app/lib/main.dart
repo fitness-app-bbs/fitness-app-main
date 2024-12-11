@@ -201,7 +201,7 @@ class CustomNavBarTheme {
   static NavigationBarThemeData theme(Brightness brightness) {
     return NavigationBarThemeData(
       backgroundColor: AppColors.cardColor(brightness),
-      indicatorColor: AppColors.backgroundColor(brightness),
+      indicatorColor: AppColors.navigationColor(brightness),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       iconTheme: MaterialStateProperty.resolveWith<IconThemeData>(
             (Set<MaterialState> states) {

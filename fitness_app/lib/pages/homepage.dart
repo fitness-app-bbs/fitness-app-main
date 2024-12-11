@@ -257,27 +257,37 @@ class _HomePageState extends State<HomePage> {
 
 
 
-Widget _buildHorizontalScrollView(BuildContext context) {
+  Widget _buildHorizontalScrollView(BuildContext context) {
     return Column(
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildWorkoutCard(
-                localizedStrings!['workout_card_cardio'],
-                localizedStrings!['workout_card_cardio_exercises'],
-                localizedStrings!['workout_card_cardio_time'],
-                Colors.orange,
-                'assets/images/crunch.png',
+              GestureDetector(
+                onTap: () {
+                  widget.onTileTap(1);
+                },
+                child: _buildWorkoutCard(
+                  localizedStrings!['workout_card_cardio'],
+                  localizedStrings!['workout_card_cardio_exercises'],
+                  localizedStrings!['workout_card_cardio_time'],
+                  Colors.orange,
+                  'assets/images/crunch.png',
+                ),
               ),
               SizedBox(width: 16),
-              _buildWorkoutCard(
-                localizedStrings!['workout_card_arms'],
-                localizedStrings!['workout_card_arms_exercises'],
-                localizedStrings!['workout_card_arms_time'],
-                Colors.indigo,
-                'assets/images/bench_press.png',
+              GestureDetector(
+                onTap: () {
+                  widget.onTileTap(1);
+                },
+                child: _buildWorkoutCard(
+                  localizedStrings!['workout_card_arms'],
+                  localizedStrings!['workout_card_arms_exercises'],
+                  localizedStrings!['workout_card_arms_time'],
+                  Colors.indigo,
+                  'assets/images/bench_press.png',
+                ),
               ),
             ],
           ),
@@ -287,16 +297,26 @@ Widget _buildHorizontalScrollView(BuildContext context) {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildFoodCard(
-                localizedStrings!['food_card_fruit_granola'],
-                Colors.orange,
-                'assets/images/fruit_granola.png',
+              GestureDetector(
+                onTap: () {
+                  widget.onTileTap(2);
+                },
+                child: _buildFoodCard(
+                  localizedStrings!['food_card_fruit_granola'],
+                  Colors.orange,
+                  'assets/images/fruit_granola.png',
+                ),
               ),
               SizedBox(width: 16),
-              _buildFoodCard(
-                localizedStrings!['food_card_pesto_pasta'],
-                Colors.indigo,
-                'assets/images/pesto_pasta.png',
+              GestureDetector(
+                onTap: () {
+                  widget.onTileTap(2);
+                },
+                child: _buildFoodCard(
+                  localizedStrings!['food_card_pesto_pasta'],
+                  Colors.indigo,
+                  'assets/images/pesto_pasta.png',
+                ),
               ),
             ],
           ),
@@ -304,6 +324,7 @@ Widget _buildHorizontalScrollView(BuildContext context) {
       ],
     );
   }
+
 
 
   Widget _buildActivityCardRight(String title, String count, String subtitle, IconData icon, Color color) {

@@ -43,6 +43,13 @@ class AppColors {
     return brightness == Brightness.light ? _lightSecondaryColor : _darkSecondaryColor;
   }
 
+  static const Color _lightNavigation = Color(0xFFF5F5F5);
+  static const Color _darkNavigation = Color(0xFF4B4A4A);
+
+  static Color navigationColor(Brightness brightness) {
+    return brightness == Brightness.light ? _lightNavigation : _darkNavigation;
+  }
+
   static const Color _red = Color(0xFFD50B0D);
   static const Color _lightred = Color(0xFFFFEBEE);
 

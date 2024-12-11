@@ -140,8 +140,8 @@ class WorkoutPage extends StatelessWidget {
         padding: const EdgeInsets.only(top: 60.0, left: 16.0, right: 16.0, bottom: 16.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
+          mainAxisSpacing: 18,
+          crossAxisSpacing: 18,
           childAspectRatio: 0.9,
         ),
         itemCount: workouts.length,
@@ -149,12 +149,8 @@ class WorkoutPage extends StatelessWidget {
           final workout = workouts[index];
           return GestureDetector(
             onTap: () => onWorkoutSelected(workout),
-            child: Card(
-              color: AppColors.cardColor(brightness),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              elevation: 3,
+            child: Container(
+              decoration: _buildBoxDecoration(brightness),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -171,6 +167,20 @@ class WorkoutPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+  BoxDecoration _buildBoxDecoration(Brightness brightness) {
+    return BoxDecoration(
+      color: AppColors.cardColor(brightness),
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 4,
+          blurRadius: 6,
+          offset: Offset(0, 4),
+        ),
+      ],
     );
   }
 }
