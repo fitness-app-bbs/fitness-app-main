@@ -101,44 +101,55 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                localizedStrings!['invite_friends_title'],
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textColor(brightness),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  localizedStrings!['invite_friends_title'],
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColor(brightness),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  localizedStrings!['invite_friends_description'],
+                  style: TextStyle(color: AppColors.textColor(brightness)),
+                  maxLines: 2,
+                  overflow: TextOverflow.visible,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 5),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.25,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryColor(brightness),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              SizedBox(height: 8),
-              Text(
-                localizedStrings!['invite_friends_description'],
-                style: TextStyle(color: AppColors.textColor(brightness)),
+              onPressed: () {
+                Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
+              },
+              child: Text(
+                localizedStrings!['invite_button'],
+                style: TextStyle(color: AppColors.white),
+                textAlign: TextAlign.center, // Zentriert den Text im Button
               ),
-            ],
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryColor(brightness),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onPressed: () {
-              Share.share("https://play.google.com/store/apps/details?id=com.instructivetech.fitnessapp");
-            },
-            child: Text(
-              localizedStrings!['invite_button'],
-              style: TextStyle(color: AppColors.white),
             ),
           ),
         ],
       ),
     );
   }
+
 
   Widget _buildLeaderboardCard(Map<String, dynamic> user) {
     final brightness = Theme.of(context).brightness;

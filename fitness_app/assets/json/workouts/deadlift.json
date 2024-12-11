@@ -1,7 +1,7 @@
 {
   "name": {
     "en": "Deadlift",
-    "de": "Gewichtheben"
+    "de": "Kreuzheben"
   },
   "iconUrl": "assets/images/deadlift.png",
   "description": {
@@ -30,9 +30,9 @@
         "Single-Leg Deadlift: Perform with one leg to challenge balance and stability."
       ],
       "de": [
-        "Sumo-Gewichtheben: Verwenden Sie einen breiteren Stand und greifen Sie die Hantel zwischen den Beinen, um die inneren Oberschenkel und Gesäßmuskeln zu trainieren.",
-        "Rumänisches Gewichtheben: Konzentrieren Sie sich auf die Oberschenkelrückseite, indem Sie die Hantel mit leicht gebeugten Knien absenken und nah an den Schienbeinen halten.",
-        "Einbeiniges Gewichtheben: Führen Sie die Übung mit einem Bein aus, um Balance und Stabilität zu verbessern."
+        "Sumo-Kreuzheben: Verwenden Sie einen breiteren Stand und greifen Sie die Hantel zwischen den Beinen, um die inneren Oberschenkel und Gesäßmuskeln zu trainieren.",
+        "Rumänisches Kreuzheben: Konzentrieren Sie sich auf die Oberschenkelrückseite, indem Sie die Hantel mit leicht gebeugten Knien absenken und nah an den Schienbeinen halten.",
+        "Einbeiniges Kreuzheben: Führen Sie die Übung mit einem Bein aus, um Balance und Stabilität zu verbessern."
       ]
     }
   },
