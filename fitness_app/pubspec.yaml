@@ -23,7 +23,7 @@ dependencies:
   share_plus: ^10.1.1
   permission_handler: ^10.2.0
   font_awesome_flutter: ^10.1.0
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.3.4
   flutter_localizations:
     sdk: flutter
 
